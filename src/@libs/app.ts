@@ -1,10 +1,11 @@
+import 'reflect-metadata'; // for decorator
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
-import Routes from './router';
+import { Route } from './router';
 import errorMiddleware from './middlewares/error.middleware';
 import AuthRoute from './authentication/auth.route';
 
@@ -16,7 +17,7 @@ class App {
   public port: (string | number);
   public isProduction: boolean;
 
-  constructor(routes: Routes[]) {
+  constructor(routes: Route[]) {
     this.app = express();
     this.port = vars.port || 3000;
     this.isProduction = vars.env === 'production' ? true : false;
@@ -55,7 +56,7 @@ class App {
     this.app.use(cookieParser());
   }
 
-  private initializeRoutes(routes: Routes[]) {
+  private initializeRoutes(routes: Route[]) {
     routes.forEach((route) => {
       this.app.use('/', route.router);
     });
