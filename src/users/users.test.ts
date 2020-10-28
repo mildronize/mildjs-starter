@@ -1,9 +1,9 @@
 import request from 'supertest';
 import App from '../app';
-import { User } from '../interfaces/users.interface';
-import userModel from '../models/users.model';
-import UserRoute from '../routes/users.route';
-import { CreateUserDto } from 'dtos/users.dto';
+import { User } from './users.interface';
+import userModel from './users.model';
+import UserRoute from './users.route';
+import { CreateUserDto } from 'users/dtos/users.dto';
 
 afterAll(async () => {
   await new Promise(resolve => setTimeout(() => resolve(), 500));

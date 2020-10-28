@@ -1,11 +1,11 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { CreateUserDto } from '../../dtos/users.dto';
+import { CreateUserDto } from '../../users/dtos/users.dto';
 import HttpException from '../exceptions/HttpException';
 import { DataStoredInToken, TokenData } from './auth.interface';
-import { User } from '../../interfaces/users.interface';
-import userModel from '../../models/users.model';
-import { isEmptyObject } from '../../utils/util';
+import { User } from '../../users/users.interface';
+import userModel from '../../users/users.model';
+import { isEmptyObject } from '../utils/util';
 
 class AuthService {
   public users = userModel;
