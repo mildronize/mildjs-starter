@@ -1,5 +1,5 @@
-import * as bcrypt from 'bcrypt';
-import * as request from 'supertest';
+import bcrypt from 'bcrypt';
+import request from 'supertest';
 import App from '../app';
 import AuthRoute from '../routes/auth.route';
 import { CreateUserDto } from '../dtos/users.dto';

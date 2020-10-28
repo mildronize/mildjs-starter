@@ -14,7 +14,8 @@
       "disable-next-line": ["align", "no-trailing-whitespace"],
       "max-classes-per-file": true,
       "no-parameter-reassignment": false,
-      "jsdoc-format": false
+      "jsdoc-format": false,
+      "quotemark": [true, "single", "jsx-single"]
     },
     "rulesDirectory": []
   }

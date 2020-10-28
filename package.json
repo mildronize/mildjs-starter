@@ -6,7 +6,8 @@
     "dev": "cross-env NODE_ENV=development nodemon --watch src --delay 1 --exec 'ts-node' src/server.ts",
     "test": "jest --forceExit --detectOpenHandles",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "type-check": "tsc -p tsconfig.json -w"
+    "type-check:watch": "tsc -p tsconfig.json -w",
+    "type-check": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
