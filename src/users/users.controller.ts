@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from './dtos/users.dto';
 import { User } from './users.interface';
 import userService from './users.service';
-import { Controller, Get, Middleware, Post } from '../@libs/router';
+import { Controller, Delete, Get, Middleware, Post, Put } from '../@libs/router';
 import HttpException from '../@libs/exceptions/HttpException';
 import validationMiddleware from '../@libs/middlewares/validation.middleware';
 
@@ -47,7 +47,9 @@ export class UsersController {
     
   }
 
-  public updateUser = async (req: Request, res: Response, next: NextFunction) => {
+  @Middleware(validationMiddleware(CreateUserDto, true))
+  @Put('/:id(\\d+)')
+  public async updateUser(req: Request, res: Response, next: NextFunction){
     const userId: number = Number(req.params.id);
     const userData: User = req.body;
 
@@ -59,7 +61,9 @@ export class UsersController {
     }
   }
 
-  public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+
+  @Delete('/:id(\\d+)')
+  public async deleteUser(req: Request, res: Response, next: NextFunction){
     const userId : number = Number(req.params.id);
 
     try {
