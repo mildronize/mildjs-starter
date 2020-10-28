@@ -4,10 +4,11 @@ import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import logger from 'morgan';
-import Routes from './@libs/router';
-import errorMiddleware from './@libs/middlewares/error.middleware';
+import Routes from './router';
+import errorMiddleware from './middlewares/error.middleware';
+import AuthRoute from './authentication/auth.route';
 
-import vars from "./@libs/config/vars";
+import vars from "./config/vars";
 
 class App {
   public app: express.Application;
@@ -18,6 +19,8 @@ class App {
     this.app = express();
     this.port = vars.port || 3000;
     this.isProduction = vars.env === 'production' ? true : false;
+
+    routes.push(new AuthRoute());  // Add auth routes as default
 
     this.initializeMiddlewares();
     this.initializeRoutes(routes);

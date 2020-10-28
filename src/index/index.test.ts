@@ -1,5 +1,5 @@
 import request from 'supertest';
-import App from '../app';
+import App from '../@libs/app';
 import IndexRoute from './index.route';
 
 afterAll(async () => {

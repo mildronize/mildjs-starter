@@ -1,5 +1,5 @@
 import request from 'supertest';
-import App from '../app';
+import App from '../@libs/app';
 import { User } from './users.interface';
 import userModel from './users.model';
 import UserRoute from './users.route';
