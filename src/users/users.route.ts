@@ -19,6 +19,7 @@ class UsersRoute implements Route {
     router.get(`${path}/:id(\\d+)`, controller.getUserById);
     router.post(`${path}`, validationMiddleware(CreateUserDto), controller.createUser);
     router.put(`${path}/:id(\\d+)`, validationMiddleware(CreateUserDto, true), controller.updateUser);
+    router.delete(`${path}/:id(\\d+)`, controller.deleteUser);
   }
 }
 
