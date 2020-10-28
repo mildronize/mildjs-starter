@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dtos/users.dto';
 import HttpException from '../@libs/exceptions/HttpException';
-import { User } from './users.entity';
+import { User } from './users.interface';
 import userModel from './users.seed';
 import { isEmptyObject } from '../@libs/utils/util';
 

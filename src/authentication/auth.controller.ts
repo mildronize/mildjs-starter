@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from '../users/dtos/users.dto';
 import { RequestWithUser } from './auth.interface';
-import { User } from '../users/users.entity';
+import { User } from '../users/users.interface';
 import AuthService from './auth.service';
 
 import { Controller, Middleware, Post } from '../@libs/router';

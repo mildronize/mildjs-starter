@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from './dtos/users.dto';
-import { User } from './users.entity';
+import { User } from './users.interface';
 import userService from './users.service';
 import { Controller, Delete, Get, Middleware, Post, Put } from '../@libs/router';
 import validationMiddleware from '../@libs/middlewares/validation.middleware';

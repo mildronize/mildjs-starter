@@ -13,7 +13,7 @@ import logger from './config/logger';
 import { AuthController } from '../authentication/auth.controller';
 
 import { createConnection } from "typeorm";
-import { User } from '../users/users.entity';
+import { User } from '../users/users.interface';
 
 class App {
   public app: express.Application;
@@ -120,7 +120,9 @@ class App {
       type: "sqlite",
       database: "./app.sqlite",
       synchronize: true,
-      entities: [User]
+      entities: [
+        __dirname + "/**/*.entity.ts"
+      ]
     })
     .then(connection => {
       // here you can start to work with your entities
