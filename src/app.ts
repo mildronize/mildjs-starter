@@ -12,12 +12,12 @@ import vars from "./@libs/config/vars";
 class App {
   public app: express.Application;
   public port: (string | number);
-  public env: boolean;
+  public isProduction: boolean;
 
   constructor(routes: Routes[]) {
     this.app = express();
     this.port = vars.port || 3000;
-    this.env = vars.env === 'production' ? true : false;
+    this.isProduction = vars.env === 'production' ? true : false;
 
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
@@ -36,7 +36,7 @@ class App {
   }
 
   private initializeMiddlewares() {
-    if (this.env) {
+    if (this.isProduction) {
       this.app.use(hpp());
       this.app.use(helmet());
       this.app.use(logger('combined'));
