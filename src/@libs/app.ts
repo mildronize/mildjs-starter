@@ -3,12 +3,13 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
-import logger from 'morgan';
+import morgan from 'morgan';
 import Routes from './router';
 import errorMiddleware from './middlewares/error.middleware';
 import AuthRoute from './authentication/auth.route';
 
-import vars from "./config/vars";
+import vars from './config/vars';
+import logger from './config/logger';
 
 class App {
   public app: express.Application;
@@ -30,7 +31,7 @@ class App {
 
   public listen() {
     this.app.listen(this.port, () => {
-      console.log(`🚀 App listening on the port ${this.port}`);
+      logger.info(`🚀 App listening on the port ${this.port}`);
     });
   }
 
@@ -42,10 +43,10 @@ class App {
     if (this.isProduction) {
       this.app.use(hpp());
       this.app.use(helmet());
-      this.app.use(logger('combined'));
+      this.app.use(morgan('combined'));
       this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
     } else {
-      this.app.use(logger('dev'));
+      this.app.use(morgan('dev'));
       this.app.use(cors({ origin: true, credentials: true }));
     }
 

@@ -8,9 +8,6 @@ import vars from "../config/vars";
 function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
   const cookies = req.cookies;
 
-
-  console.log("===> ",  req.headers.authorization );
-
   if (req.headers.authorization) {
     const secret = vars.jwtSecret;
     
