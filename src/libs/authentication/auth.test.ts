@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
 import request from 'supertest';
-import App from '../app';
-import AuthRoute from '../routes/auth.route';
-import { CreateUserDto } from '../dtos/users.dto';
-import HttpException from '../libs/exceptions/HttpException';
-import { TokenData } from '../interfaces/auth.interface';
-import AuthService from '../services/auth.service';
+import App from '../../app';
+import AuthRoute from './auth.route';
+import { CreateUserDto } from '../../dtos/users.dto';
+import HttpException from '../exceptions/HttpException';
+import { TokenData } from './auth.interface';
+import AuthService from '../../services/auth.service';
 
 afterAll(async () => {
   await new Promise(resolve => setTimeout(() => resolve(), 500));
