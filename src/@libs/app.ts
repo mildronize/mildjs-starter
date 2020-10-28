@@ -22,11 +22,9 @@ class App {
     this.port = vars.port || 3000;
     this.isProduction = vars.env === 'production' ? true : false;
 
-    //routes.push(new AuthRoute());  // Add auth routes as default
     controllers.push(AuthController);// Add auth controller as default
 
     this.initializeMiddlewares();
-    // this.initializeRoutes(routes);
     this.initializeControllers(controllers);
     this.initializeSwagger();
     this.initializeErrorHandling();
@@ -56,12 +54,6 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
-  }
-
-  private initializeRoutes(routes: Route[]) {
-    routes.forEach((route) => {
-      this.app.use('/', route.router);
-    });
   }
 
   private initializeSwagger() {
