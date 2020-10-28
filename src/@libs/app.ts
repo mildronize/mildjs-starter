@@ -7,7 +7,6 @@ import hpp from 'hpp';
 import morgan from 'morgan';
 import { Route, RouteDecorator } from './router';
 import errorMiddleware from './middlewares/error.middleware';
-import AuthRoute from './authentication/auth.route';
 
 import vars from './config/vars';
 import logger from './config/logger';

@@ -3,7 +3,6 @@ import { CreateUserDto } from './dtos/users.dto';
 import { User } from './users.interface';
 import userService from './users.service';
 import { Controller, Delete, Get, Middleware, Post, Put } from '../@libs/router';
-import HttpException from '../@libs/exceptions/HttpException';
 import validationMiddleware from '../@libs/middlewares/validation.middleware';
 
 @Controller('/users')

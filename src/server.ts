@@ -1,7 +1,5 @@
 import App from './@libs/app';
 
-// import IndexRoute from './index/index.route';
-import UsersRoute from './users/users.route';
 import { IndexController } from './index/index.controller';
 import { UsersController } from './users/users.controller';
 import { getControllerData } from './@libs/router';
