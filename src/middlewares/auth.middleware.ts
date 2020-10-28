@@ -7,11 +7,15 @@ import userModel from '../models/users.model';
 function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
   const cookies = req.cookies;
 
-  if (cookies && cookies.Authorization) {
-    const secret = process.env.JWT_SECRET;
 
+  console.log("===> ",  req.headers.authorization );
+
+  if (req.headers.authorization) {
+    const secret = process.env.JWT_SECRET;
+    
     try {
-      const verificationResponse = jwt.verify(cookies.Authorization, secret) as DataStoredInToken;
+      const requestToken = req.headers.authorization;
+      const verificationResponse = jwt.verify(requestToken, secret) as DataStoredInToken;
       const userId = verificationResponse.id;
       const findUser = userModel.find(user => user.id === userId);
 
@@ -19,7 +23,7 @@ function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction)
         req.user = findUser;
         next();
       } else {
-        next(new HttpException(401, 'Wrong authentication token'));
+        next(new HttpException(401, 'Wrong authentication token: Can\'t find user'));
       }
     } catch (error) {
       next(new HttpException(401, 'Wrong authentication token'));
