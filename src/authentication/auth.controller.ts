@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
-import { CreateUserDto } from '../../users/dtos/users.dto';
+import { CreateUserDto } from '../users/dtos/users.dto';
 import { RequestWithUser } from './auth.interface';
-import { User } from '../../users/users.interface';
+import { User } from '../users/users.interface';
 import AuthService from './auth.service';
 
-import { Controller, Middleware, Post } from '../router';
-import validationMiddleware from '../middlewares/validation.middleware';
-import authMiddleware from '../middlewares/auth.middleware';
+import { Controller, Middleware, Post } from '../@libs/router';
+import validationMiddleware from '../@libs/middlewares/validation.middleware';
+import authMiddleware from './auth.middleware';
 
 @Controller()
 export class AuthController {
@@ -53,5 +53,3 @@ export class AuthController {
     }
   }
 }
-
-// export default AuthController;

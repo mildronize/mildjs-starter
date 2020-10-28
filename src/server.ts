@@ -2,10 +2,12 @@ import App from './@libs/app';
 
 import { IndexController } from './index/index.controller';
 import { UsersController } from './users/users.controller';
+import { AuthController } from './authentication/auth.controller';
 
 const app = new App([
   IndexController,
-  UsersController
+  UsersController,
+  AuthController
 ]);
 
 app.listen();

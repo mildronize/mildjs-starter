@@ -1,9 +1,9 @@
 import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import HttpException from '../exceptions/HttpException';
-import { DataStoredInToken, RequestWithUser } from '../authentication/auth.interface';
-import userModel from '../../users/users.model';
-import vars from "../config/vars";
+import HttpException from '../@libs/exceptions/HttpException';
+import { DataStoredInToken, RequestWithUser } from './auth.interface';
+import userModel from '../users/users.model';
+import vars from "../@libs/config/vars";
 
 function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
   const cookies = req.cookies;

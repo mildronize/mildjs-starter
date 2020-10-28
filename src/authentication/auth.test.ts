@@ -1,10 +1,6 @@
-import bcrypt from 'bcrypt';
 import request from 'supertest';
-import App from '../app';
-import { CreateUserDto } from '../../users/dtos/users.dto';
-import HttpException from '../exceptions/HttpException';
-import { TokenData } from './auth.interface';
-import AuthService from './auth.service';
+import App from '../@libs/app';
+import { CreateUserDto } from '../users/dtos/users.dto';
 import { AuthController } from './auth.controller';
 import { getControllerData } from '@libs/router';
 

@@ -10,7 +10,7 @@ import errorMiddleware from './middlewares/error.middleware';
 
 import vars from './config/vars';
 import logger from './config/logger';
-import {AuthController} from './authentication/auth.controller';
+import {AuthController} from '../authentication/auth.controller';
 
 class App {
   public app: express.Application;
@@ -21,8 +21,6 @@ class App {
     this.app = express();
     this.port = vars.port || 3000;
     this.isProduction = vars.env === 'production' ? true : false;
-
-    controllers.push(AuthController);// Add auth controller as default
 
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
