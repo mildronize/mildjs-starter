@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import hpp from 'hpp';
 import logger from 'morgan';
 import Routes from './interfaces/routes.interface';
-import errorMiddleware from './middlewares/error.middleware';
+import errorMiddleware from './libs/middlewares/error.middleware';
 
 class App {
   public app: express.Application;
