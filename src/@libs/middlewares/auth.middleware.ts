@@ -3,6 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import HttpException from '../exceptions/HttpException';
 import { DataStoredInToken, RequestWithUser } from '../authentication/auth.interface';
 import userModel from '../../users/users.model';
+import vars from "../config/vars";
 
 function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
   const cookies = req.cookies;
@@ -11,7 +12,7 @@ function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction)
   console.log("===> ",  req.headers.authorization );
 
   if (req.headers.authorization) {
-    const secret = process.env.JWT_SECRET;
+    const secret = vars.jwtSecret;
     
     try {
       const requestToken = req.headers.authorization;

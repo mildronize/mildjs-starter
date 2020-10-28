@@ -6,6 +6,7 @@ import { DataStoredInToken, TokenData } from './auth.interface';
 import { User } from '../../users/users.interface';
 import userModel from '../../users/users.model';
 import { isEmptyObject } from '../utils/util';
+import vars from '../config/vars';
 
 class AuthService {
   public users = userModel;
@@ -48,8 +49,8 @@ class AuthService {
 
   public createToken(user: User): TokenData {
     const dataStoredInToken: DataStoredInToken = { id: user.id };
-    const secret: string = process.env.JWT_SECRET;
-    const expiresIn: number = 60 * 60;
+    const secret: string = vars.jwtSecret;
+    const expiresIn: number = vars.jwtExpirationInterval * 60;
 
     const JWTtoken = jwt.sign(dataStoredInToken, secret, { expiresIn });
 

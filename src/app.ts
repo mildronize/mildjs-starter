@@ -7,6 +7,8 @@ import logger from 'morgan';
 import Routes from './@libs/router';
 import errorMiddleware from './@libs/middlewares/error.middleware';
 
+import vars from "./@libs/config/vars";
+
 class App {
   public app: express.Application;
   public port: (string | number);
@@ -14,8 +16,8 @@ class App {
 
   constructor(routes: Routes[]) {
     this.app = express();
-    this.port = process.env.PORT || 3000;
-    this.env = process.env.NODE_ENV === 'production' ? true : false;
+    this.port = vars.port || 3000;
+    this.env = vars.env === 'production' ? true : false;
 
     this.initializeMiddlewares();
     this.initializeRoutes(routes);

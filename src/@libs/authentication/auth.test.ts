@@ -21,9 +21,9 @@ describe('Testing Auth', () => {
       const authRoute = new AuthRoute();
       const app = new App([authRoute]);
 
-      // return request(app.getServer())
-      //           .post(`${authRoute.path}/signup`)
-      //           .send(userData);
+      return request(app.getServer())
+                .post(`${authRoute.path}/signup`)
+                .send(userData);
     });
   });
 
@@ -33,14 +33,14 @@ describe('Testing Auth', () => {
         email: 'lim@gmail.com',
         password: 'q1w2e3r4',
       };
-      process.env.JWT_SECRET = 'jwt_secret';
+      // process.env.JWT_SECRET = 'jwt_secret';
       const authRoute = new AuthRoute();
       const app = new App([authRoute]);
 
-      // return request(app.getServer())
-      //           .post(`${authRoute.path}/login`)
-      //           .send(userData)
-      //           .expect('Set-Cookie', /^Authorization=.+/);
+      return request(app.getServer())
+                .post(`${authRoute.path}/login`)
+                .send(userData)
+                .expect('Set-Cookie', /^Authorization=.+/);
     });
   });
 
@@ -48,6 +48,8 @@ describe('Testing Auth', () => {
     it('logout Set-Cookie Authorization=; Max-age=0', () => {
       const authRoute = new AuthRoute();
       const app = new App([authRoute]);
+
+      // TODO: Check the token in the header instead
 
       // return request(app.getServer())
       //           .post(`${authRoute.path}/logout`)
