@@ -5,7 +5,7 @@ import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
-import { Route, RouteDecorator } from './router';
+import { Controller, Route, RouteDecorator } from './router';
 import errorMiddleware from './middlewares/error.middleware';
 
 import vars from './config/vars';
@@ -72,7 +72,7 @@ class App {
     };
 
     const specs = swaggerJSDoc(options);
-    this.app.use('/swagger', swaggerUi.serve, swaggerUi.setup(specs));
+    this.app.use('/docs/api', swaggerUi.serve, swaggerUi.setup(specs));
   }
 
   private initializeErrorHandling() {
@@ -84,31 +84,30 @@ class App {
     controllers.forEach(controller => {
       // This is our instantiated class
       const instance = new controller();
+      logger.info(`Added controller: ${instance.constructor.name}`);
+
       // The prefix saved to our controller
       const prefix = Reflect.getMetadata('prefix', controller);
       // Our `routes` array containing all our routes for this controller
       const routes: Array<RouteDecorator> = Reflect.getMetadata('routes', controller);
 
+      const callInstance = (route: RouteDecorator) => (req: express.Request, res: express.Response) => {
+        instance[route.methodName](req, res);
+      }
+
       // Iterate over all routes and register them to our express application 
       routes.forEach((route: RouteDecorator) => {
-        // If the route has a middleware,
-        if (route.hasOwnProperty("middleware")) {
-          // then call the middleware
-          this.app[route.requestMethod](prefix + route.path, route.middleware, (req: express.Request, res: express.Response) => {
-            // Execute our method for this path and pass our express request and response object.
-            instance[route.methodName](req, res);
-          });
-        } else {
 
-          // It would be a good idea at this point to substitute the `app[route.requestMethod]` with a `switch/case` statement
-          // since we can't be sure about the availability of methods on our `app` object. But for the sake of simplicity
-          // this should be enough for now.
-          this.app[route.requestMethod](prefix + route.path, (req: express.Request, res: express.Response) => {
-            // Execute our method for this path and pass our express request and response object.
-            instance[route.methodName](req, res);
-          });
+        if (route.hasOwnProperty("middleware")) {
+          // Call the middleware
+          this.app[route.requestMethod](prefix + route.path, route.middleware, callInstance(route));
+        } else {
+          this.app[route.requestMethod](prefix + route.path, callInstance(route));
         }
+        logger.info(`Mapped route: [${route.requestMethod}] '${prefix}${route.path}'`);
+
       });
+
     });
 
   }
