@@ -2,7 +2,7 @@ import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import HttpException from '../@libs/exceptions/HttpException';
 import { DataStoredInToken, RequestWithUser } from './auth.interface';
-import userModel from '../users/users.model';
+import userModel from '../users/users.seed';
 import vars from "../@libs/config/vars";
 
 function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {

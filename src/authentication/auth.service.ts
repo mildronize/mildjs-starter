@@ -3,8 +3,8 @@ import * as jwt from 'jsonwebtoken';
 import { CreateUserDto } from '../users/dtos/users.dto';
 import HttpException from '../@libs/exceptions/HttpException';
 import { DataStoredInToken, TokenData } from './auth.interface';
-import { User } from '../users/users.interface';
-import userModel from '../users/users.model';
+import { User } from '../users/users.entity';
+import userModel from '../users/users.seed';
 import { isEmptyObject } from '../@libs/utils/util';
 import vars from '../@libs/config/vars';
 

@@ -1,4 +1,4 @@
-import { User } from './users.interface';
+import { User } from './users.entity';
 
 // password: q1w2e3r4
 const userModel: User[] = [

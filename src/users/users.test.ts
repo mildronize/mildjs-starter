@@ -1,7 +1,7 @@
 import request from 'supertest';
 import App from '../@libs/app';
-import { User } from './users.interface';
-import userModel from './users.model';
+import { User } from './users.entity';
+import userModel from './users.seed';
 import { CreateUserDto } from 'users/dtos/users.dto';
 import { getControllerData } from '@libs/router';
 import { UsersController } from './users.controller';

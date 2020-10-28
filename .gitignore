@@ -4,6 +4,8 @@
 # Dist dir
 dist
 
+# sqlite
+*.sqlite
 
 # Logs
 logs

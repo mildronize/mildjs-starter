@@ -10,7 +10,10 @@ import errorMiddleware from './middlewares/error.middleware';
 
 import vars from './config/vars';
 import logger from './config/logger';
-import {AuthController} from '../authentication/auth.controller';
+import { AuthController } from '../authentication/auth.controller';
+
+import { createConnection } from "typeorm";
+import { User } from '../users/users.entity';
 
 class App {
   public app: express.Application;
@@ -26,6 +29,7 @@ class App {
     this.initializeControllers(controllers);
     this.initializeSwagger();
     this.initializeErrorHandling();
+    this.initializeDatabase();
   }
 
   public listen() {
@@ -108,6 +112,20 @@ class App {
 
     });
 
+  }
+
+  private initializeDatabase() {
+    createConnection({
+      name: 'default',
+      type: "sqlite",
+      database: "./app.sqlite",
+      synchronize: true,
+      entities: [User]
+    })
+    .then(connection => {
+      // here you can start to work with your entities
+    }).catch(error => logger.error(error)
+    );
   }
 
 }
