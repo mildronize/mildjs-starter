@@ -5,7 +5,7 @@ import AuthRoute from './auth.route';
 import { CreateUserDto } from '../../dtos/users.dto';
 import HttpException from '../exceptions/HttpException';
 import { TokenData } from './auth.interface';
-import AuthService from '../../services/auth.service';
+import AuthService from './auth.service';
 
 afterAll(async () => {
   await new Promise(resolve => setTimeout(() => resolve(), 500));

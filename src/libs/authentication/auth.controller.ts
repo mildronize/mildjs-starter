@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from '../../dtos/users.dto';
 import { RequestWithUser } from './auth.interface';
 import { User } from '../../interfaces/users.interface';
-import AuthService from '../../services/auth.service';
+import AuthService from './auth.service';
 
 class AuthController {
   public authService = new AuthService();
