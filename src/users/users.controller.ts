@@ -2,11 +2,16 @@ import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from './dtos/users.dto';
 import { User } from './users.interface';
 import userService from './users.service';
+import { Controller, Get, Middleware, Post } from '../@libs/router';
+import HttpException from '../@libs/exceptions/HttpException';
+import validationMiddleware from '../@libs/middlewares/validation.middleware';
 
-class UsersController {
+@Controller('/users')
+export class UsersController {
   public userService = new userService();
 
-  public getUsers = async (req: Request, res: Response, next: NextFunction) => {
+  @Get('/')
+  public async getUsers(req: Request, res: Response, next: NextFunction){
     try {
       const findAllUsersData: User[] = await this.userService.findAllUser();
       res.status(200).json({ data: findAllUsersData, message: 'findAll' });
@@ -15,7 +20,8 @@ class UsersController {
     }
   }
 
-  public getUserById = async (req: Request, res: Response, next: NextFunction) => {
+  @Get('/:id(\\d+)')
+  public async getUserById(req: Request, res: Response, next: NextFunction){
     const userId: number = Number(req.params.id);
 
     try {
@@ -26,15 +32,19 @@ class UsersController {
     }
   }
 
-  public createUser = async (req: Request, res: Response, next: NextFunction) => {
+  
+  @Middleware(validationMiddleware(CreateUserDto))
+  @Post('/')
+  public async createUser(req: Request, res: Response, next: NextFunction){
     const userData: CreateUserDto = req.body;
 
     try {
       const createUserData: User = await this.userService.createUser(userData);
       res.status(201).json({ data: createUserData, message: 'created' });
-    } catch (error) {
+    } catch (error ) {
       next(error);
     }
+    
   }
 
   public updateUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -60,5 +70,3 @@ class UsersController {
     }
   }
 }
-
-export default UsersController;

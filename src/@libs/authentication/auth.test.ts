@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import 'reflect-metadata'; // for decorator
 import request from 'supertest';
 import App from '../app';
 import AuthRoute from './auth.route';
@@ -6,6 +7,8 @@ import { CreateUserDto } from '../../users/dtos/users.dto';
 import HttpException from '../exceptions/HttpException';
 import { TokenData } from './auth.interface';
 import AuthService from './auth.service';
+import { AuthController } from './auth.controller';
+import { getControllerData } from '@libs/router';
 
 afterAll(async () => {
   await new Promise(resolve => setTimeout(() => resolve(), 500));
@@ -18,11 +21,12 @@ describe('Testing Auth', () => {
         email: 'lkm@gmail.com',
         password: 'q1w2e3r4',
       };
-      const authRoute = new AuthRoute();
-      const app = new App([authRoute]);
+
+      const app = new App([AuthController]);
+      const { prefix } = getControllerData(AuthController);
 
       return request(app.getServer())
-                .post(`${authRoute.path}/signup`)
+                .post(`${prefix}/signup`)
                 .send(userData);
     });
   });
@@ -34,11 +38,12 @@ describe('Testing Auth', () => {
         password: 'q1w2e3r4',
       };
       // process.env.JWT_SECRET = 'jwt_secret';
-      const authRoute = new AuthRoute();
-      const app = new App([authRoute]);
+
+      const app = new App([AuthController]);
+      const { prefix } = getControllerData(AuthController);
 
       return request(app.getServer())
-                .post(`${authRoute.path}/login`)
+                .post(`${prefix}/login`)
                 .send(userData)
                 .expect('Set-Cookie', /^Authorization=.+/);
     });
@@ -46,8 +51,9 @@ describe('Testing Auth', () => {
 
   describe('[POST] /logout', () => {
     it('logout Set-Cookie Authorization=; Max-age=0', () => {
-      const authRoute = new AuthRoute();
-      const app = new App([authRoute]);
+      
+      const app = new App([AuthController]);
+      const { prefix } = getControllerData(AuthController);
 
       // TODO: Check the token in the header instead
 

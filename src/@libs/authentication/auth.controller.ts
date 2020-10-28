@@ -4,10 +4,17 @@ import { RequestWithUser } from './auth.interface';
 import { User } from '../../users/users.interface';
 import AuthService from './auth.service';
 
-class AuthController {
+import { Controller, Middleware, Post } from '../router';
+import validationMiddleware from '../middlewares/validation.middleware';
+import authMiddleware from '../middlewares/auth.middleware';
+
+@Controller()
+export class AuthController {
   public authService = new AuthService();
 
-  public signUp = async (req: Request, res: Response, next: NextFunction) => {
+  @Post('/signup')
+  @Middleware(validationMiddleware(CreateUserDto))
+  public async signUp(req: Request, res: Response, next: NextFunction){
     const userData: CreateUserDto = req.body;
 
     try {
@@ -18,7 +25,9 @@ class AuthController {
     }
   }
 
-  public logIn = async (req: Request, res: Response, next: NextFunction) => {
+  @Middleware(validationMiddleware(CreateUserDto))
+  @Post('/login')
+  public async logIn(req: Request, res: Response, next: NextFunction){
     const userData: CreateUserDto = req.body;
 
     try {
@@ -30,7 +39,9 @@ class AuthController {
     }
   }
 
-  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  @Middleware(authMiddleware)
+  @Post('/logout')
+  public async logOut(req: RequestWithUser, res: Response, next: NextFunction){
     const userData: User = req.user;
 
     try {
@@ -43,4 +54,4 @@ class AuthController {
   }
 }
 
-export default AuthController;
+// export default AuthController;
