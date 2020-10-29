@@ -6,9 +6,13 @@ Express + Typescript
 
 - Express Route Decorator (`@libs/router`), special thanks for very good blog from [Kevin](https://nehalist.io/routing-with-typescript-decorators/) (Inspired by [nestjs](https://nestjs.com/), alternatively by [routing-controllers(https://github.com/typestack/routing-controllers))
   - Supported decorator: `Get`, `Post`, `Put`, `Delete` , `Middleware`
-- TypeORM
-- TypeDI
+- [TypeORM](https://typeorm.io/)
+- [TypeDI](https://github.com/typestack/typedi)
 - Logger by [winston](https://github.com/winstonjs/winston) (Inspired from [danielfsousa](https://github.com/danielfsousa/express-rest-boilerplate/blob/master/src/config/logger.js))
+- **Helper libraries:**
+  - [typeorm-typedi-extensions](https://github.com/typeorm/typeorm-typedi-extensions): This extension for [TypeORM](https://typeorm.io/) provides handy decorators that can be used with [TypeDI](https://github.com/typestack/typedi).
+  - [reflect-metadata](https://github.com/rbuckton/reflect-metadata) for class and method decorators
+  - **Smart Validation** thanks to [class-validator](https://github.com/typestack/class-validator) with some nice annotations.
 
 ## The starter boilerplate
 This project is based on the starter: 
