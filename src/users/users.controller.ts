@@ -9,17 +9,10 @@ import logger from '../@libs/config/logger';
 import { Container } from "typeorm-di";
 import { User } from "./users.entity";
 
-// @Service()
 @Controller('/users')
 export class UsersController {
 
-  public userService: UserService;
-
-  constructor(){
-    this.userService = Container.get(UserService);
-  }
-
-  // constructor(@Inject(UserService) private userService: UserService ){}
+  public userService: UserService = Container.get(UserService);
 
   @Get('/')
   public async getUsers(req: Request, res: Response, next: NextFunction) {
