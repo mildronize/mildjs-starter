@@ -1,45 +1,55 @@
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dtos/users.dto';
 import HttpException from '../@libs/exceptions/HttpException';
-import { User } from './users.interface';
+import { User as UserOld } from './users.interface';
 import userModel from './users.seed';
 import { isEmptyObject } from '../@libs/utils/util';
 
+import { Service } from "typedi";
+import { Repository } from "typeorm";
+import { InjectRepository , InjectManager} from "typeorm-typedi-extensions";
+import { User } from "./users.entity";
+
+@Service()
 class UserService {
+
+  @InjectRepository(User) 
+  private repository: Repository<User>;
+
   public users = userModel;
 
-  public async findAllUser(): Promise<User[]> {
-    const users: User[] = this.users;
+  public findAllUser(): Promise<User[]> {
+    const users = this.repository.find();
     return users;
   }
 
-  public async findUserById(userId: number): Promise<User> {
-    const findUser: User = this.users.find(user => user.id === userId);
+  public async findUserById(userId: number): Promise<UserOld> {
+    const findUser: UserOld = this.users.find(user => user.id === userId);
     if (!findUser) throw new HttpException(409, `You're not user`);
 
     return findUser;
   }
 
-  public async createUser(userData: CreateUserDto): Promise<User> {
+  public async createUser(userData: CreateUserDto): Promise<UserOld> {
     if (isEmptyObject(userData)) throw new HttpException(400, `You're not userData`);
 
-    const findUser: User = this.users.find(user  => user.email === userData.email);
+    const findUser: UserOld = this.users.find(user => user.email === userData.email);
     if (findUser) throw new HttpException(409, `You're email ${userData.email} already exists`);
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const createUserData: User = { id: (this.users.length + 1), ...userData, password: hashedPassword };
+    const createUserData: UserOld = { id: (this.users.length + 1), ...userData, password: hashedPassword };
 
     return createUserData;
   }
 
-  public async updateUser(userId: number, userData: User): Promise<User[]> {
+  public async updateUser(userId: number, userData: UserOld): Promise<UserOld[]> {
     if (isEmptyObject(userData)) throw new HttpException(400, `You're not userData`);
 
-    const findUser: User = this.users.find(user => user.id === userId);
+    const findUser: UserOld = this.users.find(user => user.id === userId);
     if (!findUser) throw new HttpException(409, `You're not user`);
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const updateUserData: User[] = this.users.map((user: User) => {
+    const updateUserData: UserOld[] = this.users.map((user: UserOld) => {
       if (user.id === findUser.id) user = { id: userId, ...userData, password: hashedPassword };
       return user;
     });
@@ -47,11 +57,11 @@ class UserService {
     return updateUserData;
   }
 
-  public async deleteUser(userId: number): Promise<User[]> {
-    const findUser: User = this.users.find(user => user.id === userId);
+  public async deleteUser(userId: number): Promise<UserOld[]> {
+    const findUser: UserOld = this.users.find(user => user.id === userId);
     if (!findUser) throw new HttpException(409, `You're not user`);
 
-    const deleteUserData: User[] = this.users.filter(user => user.id !== findUser.id);
+    const deleteUserData: UserOld[] = this.users.filter(user => user.id !== findUser.id);
     return deleteUserData;
   }
 }

@@ -12,25 +12,39 @@ import vars from './config/vars';
 import logger from './config/logger';
 import { AuthController } from '../authentication/auth.controller';
 
-import { createConnection } from "typeorm";
-import { User } from '../users/users.interface';
+import { Connection, createConnection, useContainer } from "typeorm";
+import { Container } from "typedi";
+import { User as UserOld } from '../users/users.interface';
+import { log } from 'console';
+import { User } from '../users/users.entity';
 
 class App {
   public app: express.Application;
   public port: (string | number);
   public isProduction: boolean;
+  // public connection: Connection
 
   constructor(controllers: any[]) {
     this.app = express();
     this.port = vars.port || 3000;
     this.isProduction = vars.env === 'production' ? true : false;
 
-    this.initializeMiddlewares();
-    this.initializeControllers(controllers);
-    this.initializeSwagger();
-    this.initializeErrorHandling();
-    this.initializeDatabase();
+    this.initApp(controllers);
   }
+
+  private async initApp(controllers: any[]) {
+    try {
+      this.initializeMiddlewares();
+      await this.initializeDatabase();
+      logger.info("Connected to the database");
+      this.initializeControllers(controllers);
+      this.initializeSwagger();
+      this.initializeErrorHandling();
+    } catch (err) {
+      logger.error(err);
+    }
+  }
+
 
   public listen() {
     this.app.listen(this.port, () => {
@@ -114,21 +128,27 @@ class App {
 
   }
 
-  private initializeDatabase() {
-    createConnection({
+  private initializeDatabase(): Promise<Connection> {
+
+    // Import all entity
+
+    useContainer(Container);
+    const connection = createConnection({
       name: 'default',
       type: "sqlite",
       database: "./app.sqlite",
       synchronize: true,
       entities: [
-        __dirname + "/**/*.entity.ts"
+        "**/*.entity.ts"
       ]
-    })
-    .then(connection => {
-      // here you can start to work with your entities
-    }).catch(error => logger.error(error)
-    );
+    });
+
+    return connection;
   }
+  // }).then(connection => {
+  //     logger.info("Connected");
+  // }).catch( err => logger.error(err) );
+
 
 }
 
