@@ -12,8 +12,7 @@ import vars from './config/vars';
 import logger from './config/logger';
 import { AuthController } from '../authentication/auth.controller';
 
-import { Connection, createConnection, useContainer } from "typeorm";
-import { Container } from "typedi";
+import { Connection, createConnection, useContainer , Container} from "typeorm-di";
 import { User as UserOld } from '../users/users.interface';
 import { log } from 'console';
 import { User } from '../users/users.entity';
@@ -131,7 +130,6 @@ class App {
   private initializeDatabase(): Promise<Connection> {
 
     // Import all entity
-
     useContainer(Container);
     const connection = createConnection({
       name: 'default',

@@ -5,9 +5,8 @@ import { User as UserOld } from './users.interface';
 import userModel from './users.seed';
 import { isEmptyObject } from '../@libs/utils/util';
 
-import { Service } from "typedi";
-import { Repository } from "typeorm";
-import { InjectRepository , InjectManager} from "typeorm-typedi-extensions";
+import { Service, Repository, InjectRepository } from "typeorm-di";
+
 import { User } from "./users.entity";
 
 @Service()

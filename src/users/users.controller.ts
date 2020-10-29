@@ -6,10 +6,8 @@ import { Controller, Delete, Get, Middleware, Post, Put } from '../@libs/router'
 import validationMiddleware from '../@libs/middlewares/validation.middleware';
 import logger from '../@libs/config/logger';
 
-import {Service, Inject, Container} from "typedi";
-import {Repository, Connection} from "typeorm";
-// import {InjectRepository, InjectConnection} from "typeorm-typedi-extensions";
-import {User } from "./users.entity";
+import { Container } from "typeorm-di";
+import { User } from "./users.entity";
 
 // @Service()
 @Controller('/users')
@@ -20,7 +18,7 @@ export class UsersController {
   constructor(){
     this.userService = Container.get(UserService);
   }
-  
+
   // constructor(@Inject(UserService) private userService: UserService ){}
 
   @Get('/')
