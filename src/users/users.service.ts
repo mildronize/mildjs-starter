@@ -5,7 +5,7 @@ import { User as UserOld } from './users.interface';
 import userModel from './users.seed';
 import { isEmptyObject } from '../@libs/utils/util';
 
-import { Service, Repository, InjectRepository } from "typeorm-di";
+import { Service, Container, Repository, InjectRepository } from "typeorm-di";
 
 import { User } from "./users.entity";
 

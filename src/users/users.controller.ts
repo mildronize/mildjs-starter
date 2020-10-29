@@ -18,8 +18,8 @@ export class UsersController {
   public async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
       // const findAllUsersData: User[] = await this.userService.findAllUser();
-      const userService = Container.get(UserService);
-      const findAllUsersData: User[] = await userService.findAllUser();
+      // const userService = Container.get(UserService);
+      const findAllUsersData: User[] = await this.userService.findAllUser();
       res.status(200).json({ data: findAllUsersData, message: 'findAll' });
     } catch (error) {
       logger.error(JSON.stringify(error));
