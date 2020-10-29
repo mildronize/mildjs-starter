@@ -5,14 +5,14 @@ import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
-import { Controller, Route, RouteDecorator } from './router';
+import { Controller, RouteDecorator } from './router';
 import errorMiddleware from './middlewares/error.middleware';
 
 import vars from './config/vars';
 import logger from './config/logger';
 import { AuthController } from '../authentication/auth.controller';
 
-import { Connection, createConnection, useContainer , Container} from "typeorm-di";
+import { Connection, createConnection, useContainer, Container } from "typeorm-di";
 import { User as UserOld } from '../users/users.interface';
 import { log } from 'console';
 import { User } from '../users/users.entity';
@@ -32,16 +32,14 @@ class App {
   }
 
   private async initApp(controllers: any[]) {
-    try {
-      this.initializeMiddlewares();
-      await this.initializeDatabase();
-      logger.info("Connected to the database");
-      this.initializeControllers(controllers);
-      this.initializeSwagger();
-      this.initializeErrorHandling();
-    } catch (err) {
-      logger.error(err);
-    }
+
+    this.initializeMiddlewares();
+    await this.initializeDatabase();
+    logger.info("Connected to the database");
+    this.initializeControllers(controllers);
+    this.initializeSwagger();
+    this.initializeErrorHandling();
+
   }
 
 

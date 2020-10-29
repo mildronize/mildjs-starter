@@ -1,4 +1,4 @@
-export * from './route.interface';
+
 export * from './decorator.interface';
 
 export * from './decorators/controller';
