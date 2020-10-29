@@ -1,3 +1,5 @@
+import { NextFunction, Response, Request } from 'express';
+
 export interface RouteDecorator {
     // Path to our route
     path: string;
@@ -6,5 +8,5 @@ export interface RouteDecorator {
     // Method name within our class responsible for this route
     methodName: string;
     // Middleware 
-    middleware?: any;
+    middleware?: (req: Request, res: Response, next: NextFunction) => void;
   }
