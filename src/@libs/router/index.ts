@@ -6,7 +6,6 @@ export * from './decorators/http-methods';
 export * from './decorators/middleware';
 export * from './decorators/utils';
 
-export * as response from './response';
 
 export * from './add-express-controller';
 

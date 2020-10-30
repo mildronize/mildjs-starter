@@ -66,7 +66,7 @@ Note: `typeorm-di` is just the wrapper library of `typeorm`
         @Get('/')
         public async getUsers(req: any, res: any, next: any) {
             const data: User[] = await this.userService.findAllUser();
-            response.success(res, data);
+            res.status(200).json({ data });
         }
 
     }
@@ -98,7 +98,7 @@ Note: `typeorm-di` is just the wrapper library of `typeorm`
     @Get('/')    // get method and path `/`
     public async getUsers(req: any, res: any, next: any) {
         const data: User[] = await this.userService.findAllUser();
-        response.success(res, data);
+        res.status(200).json({ data });
     }
     ```
 

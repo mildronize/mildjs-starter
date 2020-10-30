@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import HttpException from '../exceptions/HttpException';
 import { logger } from '../config';
-import { response } from '../router';
 
 function errorMiddleware(error: Error, req: Request, res: Response, next: NextFunction) {
   let code: number;

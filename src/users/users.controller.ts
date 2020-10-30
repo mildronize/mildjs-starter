@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from './dtos/users.dto';
 import { User as UserOld } from './users.interface';
 import UserService from './users.service';
-import { Controller, Delete, Get, Middleware, Post, Put, response } from '../@libs/router';
+import { Controller, Delete, Get, Middleware, Post, Put } from '../@libs/router';
 import validationMiddleware from '../@libs/middlewares/validation.middleware';
 import { logger } from '../@libs/config';
 
@@ -17,21 +17,15 @@ export class UsersController {
 
   @Get('/')
   public async getUsers(req: Request, res: Response, next: NextFunction) {
-   
       const data: User[] = await this.userService.findAllUser();
-      response.success(res, data);
+      res.status(200).json({ data });
   }
 
   @Get('/:id(\\d+)')
   public async getUserById(req: Request, res: Response, next: NextFunction) {
-    // try {
       const id: number = Number(req.params.id);
       const data = await this.userService.findUserById(id);
-      response.success(res, data);
-    // } catch (error) {
-    //   next(error);
-    // }
-
+      res.status(200).json({ data });
   }
 
 

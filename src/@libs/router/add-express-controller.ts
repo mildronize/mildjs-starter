@@ -8,7 +8,6 @@ const asyncHelper = (fn: any) => (
     }
 );
 
-
 export function addExpressController(app: express.Application, controllers: any[], logger?: Logger) {
 
     // Iterate over all our controllers and register our routes

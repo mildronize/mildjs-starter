@@ -9,4 +9,4 @@ export interface RouteDecorator {
     methodName: string;
     // Middleware 
     middleware?: (req: Request, res: Response, next: NextFunction) => void;
-  }
+}
