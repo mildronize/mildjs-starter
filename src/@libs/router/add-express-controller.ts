@@ -15,8 +15,8 @@ export function addExpressController(app: express.Application, controllers: any[
         // Our `routes` array containing all our routes for this controller
         const routes: Array<RouteDecorator> = Reflect.getMetadata('routes', controller);
 
-        const callInstance = (route: RouteDecorator) => (req: express.Request, res: express.Response) => {
-            instance[route.methodName](req, res);
+        const callInstance = (route: RouteDecorator) => (req: express.Request, res: express.Response, next: express.NextFunction) => {
+            instance[route.methodName](req, res, next);
         }
 
         // Iterate over all routes and register them to our express application 

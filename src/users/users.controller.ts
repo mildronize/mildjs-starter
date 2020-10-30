@@ -4,7 +4,7 @@ import { User as UserOld } from './users.interface';
 import UserService from './users.service';
 import { Controller, Delete, Get, Middleware, Post, Put, response } from '../@libs/router';
 import validationMiddleware from '../@libs/middlewares/validation.middleware';
-import {logger} from '../@libs/config';
+import { logger } from '../@libs/config';
 
 import { Container } from "typeorm-di";
 import { User } from "./users.entity";
@@ -19,21 +19,20 @@ export class UsersController {
   public async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
       const findAllUsersData: User[] = await this.userService.findAllUser();
-      response.success(res, findAllUsersData, );
+      response.success(res, findAllUsersData,);
     } catch (error) {
-      response.error(res, error);
+      next(error);
     }
   }
 
   @Get('/:id(\\d+)')
   public async getUserById(req: Request, res: Response, next: NextFunction) {
-    const userId: number = Number(req.params.id);
-
     try {
-      const findOneUserData: UserOld = await this.userService.findUserById(userId);
-      response.success(res, findOneUserData);
+      const id: number = Number(req.params.id);
+      const data = await this.userService.findUserById(id);
+      response.success(res, data);
     } catch (error) {
-      response.error(res, error);
+      next(error);
     }
 
   }
@@ -44,7 +43,7 @@ export class UsersController {
   public async createUser(req: Request, res: Response, next: NextFunction) {
     const userData: CreateUserDto = req.body;
 
-    try {   
+    try {
       const createUserData: User = await this.userService.createUser(userData);
       res.status(201).json({ data: createUserData, message: 'created' });
     } catch (error) {

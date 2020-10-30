@@ -1,14 +1,20 @@
 import { NextFunction, Request, Response } from 'express';
 import HttpException from '../exceptions/HttpException';
-import {logger} from '../config';
+import { logger } from '../config';
+import { response } from '../router';
 
-function errorMiddleware(error: HttpException, req: Request, res: Response, next: NextFunction) {
-  const status: number = error.code || 500;
-  const message: string = error.message || 'Something went wrong';
+function errorMiddleware(error: Error, req: Request, res: Response, next: NextFunction) {
+  let code: number;
+  let message: string = error.message || 'Something went wrong';
 
-  logger.error(`[${status}]: ${message}`);
-
-  res.status(status).json({ message });
+  if (error instanceof HttpException) {
+    code = error.toJSON().code
+  }else {
+    code = 500;
+  }
+  
+  logger.error(`[${code}]: ${message}`);
+  res.status(code).json({ message, status: 'error' });
 }
 
 export default errorMiddleware;

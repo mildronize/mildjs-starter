@@ -39,7 +39,7 @@ class UserService {
     const createUserData = {
       ...userData, password: hashedPassword
     }
-    return await this.repository.save(createUserData);
+    return this.repository.save(createUserData);
     // const createUserData: UserOld = { id: (this.users.length + 1), ...userData, password: hashedPassword };
 
     // return createUserData;

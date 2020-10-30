@@ -1,7 +1,7 @@
 import 'reflect-metadata'; // for decorator
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express from 'express';
+import express, { NextFunction, Request } from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
@@ -11,6 +11,7 @@ import errorMiddleware from './middlewares/error.middleware';
 import {vars, logger} from './config';
 
 import { Connection, createConnection, useContainer, Container } from "typeorm-di";
+import HttpException from './exceptions/HttpException';
 
 class App {
   public app: express.Application;
@@ -35,7 +36,7 @@ class App {
     addExpressController(this.app, controllers, logger);
     this.initializeSwagger();
     this.initializeErrorHandling();
-
+    logger.info('The server is successfully started.');
   }
 
 
@@ -85,6 +86,10 @@ class App {
   }
 
   private initializeErrorHandling() {
+    this.app.get('/test-next', (res: any, req: any, next: any) => {
+      logger.debug('Hey');
+      next();
+    });
     this.app.use(errorMiddleware);
   }
 
