@@ -1,14 +1,14 @@
 import 'reflect-metadata'; // for decorator
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express from 'express';
+import express, { NextFunction } from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
 // import { addExpressController } from './router';
-import errorMiddleware from './middlewares/error.middleware';
+import errorMiddleware from './error.middleware';
 
-import { vars, logger } from './config';
+import { vars, logger } from '../config';
 
 import { Connection, createConnection, useContainer, Container } from 'typeorm-di';
 import { addExpressController } from 'route-controller';
@@ -84,10 +84,6 @@ class App {
   }
 
   private initializeErrorHandling() {
-    this.app.get('/test-next', (res: any, req: any, next: any) => {
-      logger.debug('Hey');
-      next();
-    });
     this.app.use(errorMiddleware);
   }
 
@@ -104,6 +100,7 @@ class App {
 
     return connection;
   }
+
 }
 
 export default App;
