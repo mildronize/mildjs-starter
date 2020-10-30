@@ -4,8 +4,7 @@ import { RequestWithUser } from './auth.interface';
 import { User } from '../users/users.interface';
 import AuthService from './auth.service';
 
-import { Controller, Middleware, Post } from 'route-controller';
-import validationMiddleware from '../app/middlewares/validation.middleware';
+import { Controller, Middleware, Post, validateType } from 'route-controller';
 import authMiddleware from './auth.middleware';
 
 @Controller()
@@ -13,7 +12,7 @@ export class AuthController {
   public authService = new AuthService();
 
   @Post('/signup')
-  @Middleware(validationMiddleware(CreateUserDto))
+  @Middleware(validateType(CreateUserDto))
   public async signUp(req: Request, res: Response, next: NextFunction) {
     const userData: CreateUserDto = req.body;
 
@@ -25,7 +24,7 @@ export class AuthController {
     }
   }
 
-  @Middleware(validationMiddleware(CreateUserDto))
+  @Middleware(validateType(CreateUserDto))
   @Post('/login')
   public async logIn(req: Request, res: Response, next: NextFunction) {
     const userData: CreateUserDto = req.body;
