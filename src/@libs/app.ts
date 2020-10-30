@@ -1,17 +1,17 @@
 import 'reflect-metadata'; // for decorator
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express, { NextFunction, Request } from 'express';
+import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
-import { addExpressController } from './router';
+// import { addExpressController } from './router';
 import errorMiddleware from './middlewares/error.middleware';
 
 import {vars, logger} from './config';
 
 import { Connection, createConnection, useContainer, Container } from "typeorm-di";
-import HttpException from './exceptions/HttpException';
+import { addExpressController } from 'route-controller';
 
 class App {
   public app: express.Application;
@@ -33,7 +33,7 @@ class App {
     await this.initializeDatabase();
     logger.info("Connected to the database");
 
-    addExpressController(this.app, controllers, logger);
+    addExpressController(this.app, controllers);
     this.initializeSwagger();
     this.initializeErrorHandling();
     logger.info('The server is successfully started.');

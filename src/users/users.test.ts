@@ -3,7 +3,7 @@ import App from '../@libs/app';
 import { User } from './users.interface';
 import userModel from './users.seed';
 import { CreateUserDto } from 'users/dtos/users.dto';
-import { getControllerData } from '@libs/router';
+import { getControllerData } from 'route-controller';
 import { UsersController } from './users.controller';
 
 afterAll(async () => {

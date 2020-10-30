@@ -2,13 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from './dtos/users.dto';
 import { User as UserOld } from './users.interface';
 import UserService from './users.service';
-import { Controller, Delete, Get, Middleware, Post, Put } from '../@libs/router';
+import { Controller, Delete, Get, Middleware, Post, Put } from 'route-controller';
 import validationMiddleware from '../@libs/middlewares/validation.middleware';
 import { logger } from '../@libs/config';
 
 import { Container } from "typeorm-di";
 import { User } from "./users.entity";
-import HttpException from '@libs/exceptions/HttpException';
 
 @Controller('/users')
 export class UsersController {

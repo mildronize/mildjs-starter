@@ -6,8 +6,8 @@
     "dev": "cross-env NODE_ENV=development nodemon --watch src --delay 1 --exec 'ts-node' src/server.ts",
     "test": "jest src --forceExit --detectOpenHandles",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "type-check:watch": "tsc -p tsconfig.json -w",
-    "type-check": "tsc -p tsconfig.json"
+    "build:watch": "tsc -w",
+    "build": "tsc"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -25,6 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "reflect-metadata": "^0.1.13",
+    "route-controller": "0.0.2",
     "sqlite3": "^5.0.0",
     "swagger-jsdoc": "^4.3.1",
     "swagger-ui-express": "^4.1.4",

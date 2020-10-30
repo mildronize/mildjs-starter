@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Get , Controller } from '../@libs/router';
+import { Get , Controller } from 'route-controller';
 
 @Controller()
 export class IndexController {
@@ -13,8 +13,4 @@ export class IndexController {
     }
   }
 
-  // @Get('/:name')
-  // public details(req: Request, res: Response) {
-  //   return res.send(`You are looking at the profile of ${req.params.name}`);
-  // }
 }

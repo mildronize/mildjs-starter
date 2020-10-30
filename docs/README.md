@@ -76,7 +76,7 @@ Note: `typeorm-di` is just the wrapper library of `typeorm`
 
     ```typescript
     import express from 'express';
-    import { addExpressController } from '@libs/router';
+    import { addExpressController } from 'route-controller';
     import { UsersController } from './users.controller';
 
     app = express();

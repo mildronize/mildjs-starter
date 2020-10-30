@@ -2,7 +2,7 @@ import request from 'supertest';
 import App from '../@libs/app';
 import { CreateUserDto } from '../users/dtos/users.dto';
 import { AuthController } from './auth.controller';
-import { getControllerData } from '@libs/router';
+import { getControllerData } from 'route-controller';
 
 afterAll(async () => {
   await new Promise(resolve => setTimeout(() => resolve(), 500));
