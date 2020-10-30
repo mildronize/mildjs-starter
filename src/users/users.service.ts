@@ -5,14 +5,13 @@ import { User as UserOld } from './users.interface';
 import userModel from './users.seed';
 import { isEmptyObject } from '../@libs/utils/util';
 
-import { Service, Container, Repository, InjectRepository } from "typeorm-di";
+import { Service, Container, Repository, InjectRepository } from 'typeorm-di';
 
-import { User } from "./users.entity";
+import { User } from './users.entity';
 
 @Service()
 class UserService {
-
-  @InjectRepository(User) 
+  @InjectRepository(User)
   private repository: Repository<User>;
 
   public users = userModel;
@@ -37,8 +36,9 @@ class UserService {
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     const createUserData = {
-      ...userData, password: hashedPassword
-    }
+      ...userData,
+      password: hashedPassword,
+    };
     return this.repository.save(createUserData);
     // const createUserData: UserOld = { id: (this.users.length + 1), ...userData, password: hashedPassword };
 
@@ -48,7 +48,7 @@ class UserService {
   public async updateUser(userId: number, userData: UserOld): Promise<UserOld[]> {
     if (isEmptyObject(userData)) throw new HttpException(400, `You're not userData`);
 
-    const findUser: UserOld = this.users.find(user => user.id === userId);
+    const findUser: UserOld = this.users.find((user) => user.id === userId);
     if (!findUser) throw new HttpException(409, `You're not user`);
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
@@ -61,10 +61,10 @@ class UserService {
   }
 
   public async deleteUser(userId: number): Promise<UserOld[]> {
-    const findUser: UserOld = this.users.find(user => user.id === userId);
+    const findUser: UserOld = this.users.find((user) => user.id === userId);
     if (!findUser) throw new HttpException(409, `You're not user`);
 
-    const deleteUserData: UserOld[] = this.users.filter(user => user.id !== findUser.id);
+    const deleteUserData: UserOld[] = this.users.filter((user) => user.id !== findUser.id);
     return deleteUserData;
   }
 }

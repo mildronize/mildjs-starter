@@ -14,7 +14,7 @@ export class AuthController {
 
   @Post('/signup')
   @Middleware(validationMiddleware(CreateUserDto))
-  public async signUp(req: Request, res: Response, next: NextFunction){
+  public async signUp(req: Request, res: Response, next: NextFunction) {
     const userData: CreateUserDto = req.body;
 
     try {
@@ -27,7 +27,7 @@ export class AuthController {
 
   @Middleware(validationMiddleware(CreateUserDto))
   @Post('/login')
-  public async logIn(req: Request, res: Response, next: NextFunction){
+  public async logIn(req: Request, res: Response, next: NextFunction) {
     const userData: CreateUserDto = req.body;
 
     try {
@@ -41,7 +41,7 @@ export class AuthController {
 
   @Middleware(authMiddleware)
   @Post('/logout')
-  public async logOut(req: RequestWithUser, res: Response, next: NextFunction){
+  public async logOut(req: RequestWithUser, res: Response, next: NextFunction) {
     const userData: User = req.user;
 
     try {

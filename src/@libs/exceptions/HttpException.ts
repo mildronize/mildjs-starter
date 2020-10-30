@@ -11,8 +11,8 @@ class HttpException extends Error {
   toJSON() {
     return {
       code: this.code,
-      message: this.message
-    }
+      message: this.message,
+    };
   }
 }
 

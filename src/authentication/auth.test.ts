@@ -5,7 +5,7 @@ import { AuthController } from './auth.controller';
 import { getControllerData } from 'route-controller';
 
 afterAll(async () => {
-  await new Promise(resolve => setTimeout(() => resolve(), 500));
+  await new Promise((resolve) => setTimeout(() => resolve(), 500));
 });
 
 describe('Testing Auth', () => {
@@ -19,9 +19,7 @@ describe('Testing Auth', () => {
       const app = new App([AuthController]);
       const { prefix } = getControllerData(AuthController);
 
-      return request(app.getServer())
-                .post(`${prefix}/signup`)
-                .send(userData);
+      return request(app.getServer()).post(`${prefix}/signup`).send(userData);
     });
   });
 
@@ -37,15 +35,14 @@ describe('Testing Auth', () => {
       const { prefix } = getControllerData(AuthController);
 
       return request(app.getServer())
-                .post(`${prefix}/login`)
-                .send(userData)
-                .expect('Set-Cookie', /^Authorization=.+/);
+        .post(`${prefix}/login`)
+        .send(userData)
+        .expect('Set-Cookie', /^Authorization=.+/);
     });
   });
 
   describe('[POST] /logout', () => {
     it('logout Set-Cookie Authorization=; Max-age=0', () => {
-      
       const app = new App([AuthController]);
       const { prefix } = getControllerData(AuthController);
 

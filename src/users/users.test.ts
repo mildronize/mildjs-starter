@@ -7,34 +7,30 @@ import { getControllerData } from 'route-controller';
 import { UsersController } from './users.controller';
 
 afterAll(async () => {
-  await new Promise(resolve => setTimeout(() => resolve(), 500));
+  await new Promise((resolve) => setTimeout(() => resolve(), 500));
 });
 
 describe('Testing Users', () => {
   describe('[GET] /users', () => {
     it('response statusCode 200 / findAll', () => {
       const findUser: User[] = userModel;
-      
+
       const app = new App([UsersController]);
       const { prefix } = getControllerData(UsersController);
 
-      return request(app.getServer())
-      .get(`${prefix}`)
-      .expect(200, { data: findUser, message: 'findAll' });
+      return request(app.getServer()).get(`${prefix}`).expect(200, { data: findUser, message: 'findAll' });
     });
   });
 
   describe('[GET] /users/:id', () => {
     it('response statusCode 200 / findOne', () => {
       const userId: number = 1;
-      const findUser: User = userModel.find(user => user.id === userId);
+      const findUser: User = userModel.find((user) => user.id === userId);
 
       const app = new App([UsersController]);
       const { prefix } = getControllerData(UsersController);
 
-      return request(app.getServer())
-      .get(`${prefix}/${userId}`)
-      .expect(200, { data: findUser, message: 'findOne' });
+      return request(app.getServer()).get(`${prefix}/${userId}`).expect(200, { data: findUser, message: 'findOne' });
     });
   });
 
@@ -44,14 +40,11 @@ describe('Testing Users', () => {
         email: 'lkm@gmail.com',
         password: 'q1w2e3r4',
       };
-      
+
       const app = new App([UsersController]);
       const { prefix } = getControllerData(UsersController);
 
-      return request(app.getServer())
-      .post(`${prefix}`)
-      .send(userData)
-      .expect(201);
+      return request(app.getServer()).post(`${prefix}`).send(userData).expect(201);
     });
   });
 
@@ -62,28 +55,25 @@ describe('Testing Users', () => {
         email: 'lim@gmail.com',
         password: '1q2w3e4r',
       };
-      
+
       const app = new App([UsersController]);
       const { prefix } = getControllerData(UsersController);
 
-      return request(app.getServer())
-      .put(`${prefix}/${userId}`)
-      .send(userData)
-      .expect(200);
+      return request(app.getServer()).put(`${prefix}/${userId}`).send(userData).expect(200);
     });
   });
 
   describe('[DELETE] /users/:id', () => {
     it('response statusCode 200 / deleted', () => {
       const userId = 1;
-      const deleteUser: User[] = userModel.filter(user => user.id !== userId);
-      
+      const deleteUser: User[] = userModel.filter((user) => user.id !== userId);
+
       const app = new App([UsersController]);
       const { prefix } = getControllerData(UsersController);
 
       return request(app.getServer())
-      .delete(`${prefix}/${userId}`)
-      .expect(200, { data: deleteUser, message: 'deleted' });
+        .delete(`${prefix}/${userId}`)
+        .expect(200, { data: deleteUser, message: 'deleted' });
     });
   });
 });

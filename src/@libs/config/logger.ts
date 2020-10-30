@@ -2,10 +2,10 @@ import winston from 'winston';
 
 const { format } = winston;
 
-const formatConsole = format.printf(( { message, level, timestamp }: any ) => {
+const formatConsole = format.printf(({ message, level, timestamp }: any) => {
   return `${timestamp} ${level}: ${message}`;
 });
-const formatFile = format.printf(( { message, level, timestamp }: any ) => {
+const formatFile = format.printf(({ message, level, timestamp }: any) => {
   return JSON.stringify({ message, level, timestamp });
 });
 
@@ -13,10 +13,7 @@ var filename = module.filename.split('/').slice(-1);
 
 const _logger = winston.createLogger({
   level: 'info',
-  format: format.combine(
-    format.timestamp({ format: 'YYYY-MM-dd HH:mm:ss Z' }),
-    formatFile
-  ),
+  format: format.combine(format.timestamp({ format: 'YYYY-MM-dd HH:mm:ss Z' }), formatFile),
   transports: [
     //
     // - Write to all logs with level `info` and below to `combined.log`
@@ -24,25 +21,25 @@ const _logger = winston.createLogger({
     //
     new winston.transports.File({ filename: 'error.log', level: 'error' }),
     new winston.transports.File({ filename: 'combined.log' }),
-
   ],
 });
-
 
 //
 // If we're not in production then log to the `console` with the format:
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
 //
 if (process.env.NODE_ENV !== 'production') {
-  _logger.add(new winston.transports.Console({
-    level: 'debug',
-    format: format.combine(
-      format.colorize(),
-      format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-    //   format.label({ label: filename }),
-      formatConsole
-    ),
-  }));
+  _logger.add(
+    new winston.transports.Console({
+      level: 'debug',
+      format: format.combine(
+        format.colorize(),
+        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        //   format.label({ label: filename }),
+        formatConsole,
+      ),
+    }),
+  );
 }
 
 const testLogger = () => {
@@ -52,7 +49,7 @@ const testLogger = () => {
   _logger.verbose('verbose message');
   _logger.debug('debug message');
   _logger.silly('silly message');
-}
+};
 
 // testLogger();
 

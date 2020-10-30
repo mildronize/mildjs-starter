@@ -6,27 +6,25 @@ import { Controller, Delete, Get, Middleware, Post, Put } from 'route-controller
 import validationMiddleware from '../@libs/middlewares/validation.middleware';
 import { logger } from '../@libs/config';
 
-import { Container } from "typeorm-di";
-import { User } from "./users.entity";
+import { Container } from 'typeorm-di';
+import { User } from './users.entity';
 
 @Controller('/users')
 export class UsersController {
-
   public userService: UserService = Container.get(UserService);
 
   @Get('/')
   public async getUsers(req: Request, res: Response, next: NextFunction) {
-      const data: User[] = await this.userService.findAllUser();
-      res.status(200).json({ data });
+    const data: User[] = await this.userService.findAllUser();
+    res.status(200).json({ data });
   }
 
   @Get('/:id(\\d+)')
   public async getUserById(req: Request, res: Response, next: NextFunction) {
-      const id: number = Number(req.params.id);
-      const data = await this.userService.findUserById(id);
-      res.status(200).json({ data });
+    const id: number = Number(req.params.id);
+    const data = await this.userService.findUserById(id);
+    res.status(200).json({ data });
   }
-
 
   @Middleware(validationMiddleware(CreateUserDto))
   @Post('/')
@@ -39,7 +37,6 @@ export class UsersController {
     } catch (error) {
       next(error);
     }
-
   }
 
   // @Middleware(validationMiddleware(CreateUserDto, true))
@@ -55,7 +52,6 @@ export class UsersController {
   //     next(error);
   //   }
   // }
-
 
   // @Delete('/:id(\\d+)')
   // public async deleteUser(req: Request, res: Response, next: NextFunction) {

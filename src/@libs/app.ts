@@ -8,14 +8,14 @@ import morgan from 'morgan';
 // import { addExpressController } from './router';
 import errorMiddleware from './middlewares/error.middleware';
 
-import {vars, logger} from './config';
+import { vars, logger } from './config';
 
-import { Connection, createConnection, useContainer, Container } from "typeorm-di";
+import { Connection, createConnection, useContainer, Container } from 'typeorm-di';
 import { addExpressController } from 'route-controller';
 
 class App {
   public app: express.Application;
-  public port: (string | number);
+  public port: string | number;
   public isProduction: boolean;
   // public connection: Connection
 
@@ -28,17 +28,15 @@ class App {
   }
 
   private async initApp(controllers: any[]) {
-
     this.initializeMiddlewares();
     await this.initializeDatabase();
-    logger.info("Connected to the database");
+    logger.info('Connected to the database');
 
     addExpressController(this.app, controllers);
     this.initializeSwagger();
     this.initializeErrorHandling();
     logger.info('The server is successfully started.');
   }
-
 
   public listen() {
     this.app.listen(this.port, () => {
@@ -94,22 +92,18 @@ class App {
   }
 
   private initializeDatabase(): Promise<Connection> {
-
     // Import all entity
     useContainer(Container);
     const connection = createConnection({
       name: 'default',
-      type: "sqlite",
-      database: "./app.sqlite",
+      type: 'sqlite',
+      database: './app.sqlite',
       synchronize: true,
-      entities: [
-        "**/*.entity.ts"
-      ]
+      entities: ['**/*.entity.ts'],
     });
 
     return connection;
   }
-
 }
 
 export default App;
