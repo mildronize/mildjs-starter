@@ -4,7 +4,7 @@ import { User as UserOld } from './users.interface';
 import UserService from './users.service';
 import { Controller, Delete, Get, Middleware, Post, Put, response } from '../@libs/router';
 import validationMiddleware from '../@libs/middlewares/validation.middleware';
-import logger from '../@libs/config/logger';
+import {logger} from '../@libs/config';
 
 import { Container } from "typeorm-di";
 import { User } from "./users.entity";

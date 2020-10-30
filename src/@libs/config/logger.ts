@@ -11,7 +11,7 @@ const formatFile = format.printf(( { message, level, timestamp }: any ) => {
 
 var filename = module.filename.split('/').slice(-1);
 
-const logger = winston.createLogger({
+const _logger = winston.createLogger({
   level: 'info',
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-dd HH:mm:ss Z' }),
@@ -34,7 +34,7 @@ const logger = winston.createLogger({
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
 //
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
+  _logger.add(new winston.transports.Console({
     level: 'debug',
     format: format.combine(
       format.colorize(),
@@ -46,22 +46,22 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const testLogger = () => {
-  logger.error('error message');
-  logger.warn('warn message');
-  logger.info('info message');
-  logger.verbose('verbose message');
-  logger.debug('debug message');
-  logger.silly('silly message');
+  _logger.error('error message');
+  _logger.warn('warn message');
+  _logger.info('info message');
+  _logger.verbose('verbose message');
+  _logger.debug('debug message');
+  _logger.silly('silly message');
 }
 
 // testLogger();
 
-// logger.stream = {
+// _logger.stream = {
 //   write: (message: any) => {
-//     logger.info(message.trim());
+//     _logger.info(message.trim());
 //   },
 // };
 
 // https://medium.com/@muravitskiy.mail/cannot-redeclare-block-scoped-variable-varname-how-to-fix-b1c3d9cc8206
 
-export default logger;
+export const logger = _logger;
