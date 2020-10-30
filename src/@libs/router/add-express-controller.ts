@@ -1,6 +1,13 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { RouteDecorator } from '.';
 import { Logger } from 'winston';
+
+const asyncHelper = (fn: any) => (
+    function(req: Request, res: Response, next: NextFunction){
+        fn(req, res, next).catch(next);
+    }
+);
+
 
 export function addExpressController(app: express.Application, controllers: any[], logger?: Logger) {
 
@@ -15,9 +22,11 @@ export function addExpressController(app: express.Application, controllers: any[
         // Our `routes` array containing all our routes for this controller
         const routes: Array<RouteDecorator> = Reflect.getMetadata('routes', controller);
 
-        const callInstance = (route: RouteDecorator) => (req: express.Request, res: express.Response, next: express.NextFunction) => {
-            instance[route.methodName](req, res, next);
-        }
+        const callInstance = (route: RouteDecorator) => 
+            asyncHelper( async (req: Request, res: Response, next: NextFunction) => {
+                 await instance[route.methodName](req, res, next);
+            });
+        
 
         // Iterate over all routes and register them to our express application 
         routes.forEach((route: RouteDecorator) => {

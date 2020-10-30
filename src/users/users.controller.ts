@@ -17,23 +17,20 @@ export class UsersController {
 
   @Get('/')
   public async getUsers(req: Request, res: Response, next: NextFunction) {
-    try {
-      const findAllUsersData: User[] = await this.userService.findAllUser();
-      response.success(res, findAllUsersData,);
-    } catch (error) {
-      next(error);
-    }
+   
+      const data: User[] = await this.userService.findAllUser();
+      response.success(res, data);
   }
 
   @Get('/:id(\\d+)')
   public async getUserById(req: Request, res: Response, next: NextFunction) {
-    try {
+    // try {
       const id: number = Number(req.params.id);
       const data = await this.userService.findUserById(id);
       response.success(res, data);
-    } catch (error) {
-      next(error);
-    }
+    // } catch (error) {
+    //   next(error);
+    // }
 
   }
 
