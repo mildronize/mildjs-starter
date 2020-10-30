@@ -22,23 +22,27 @@ class UserService {
     return users;
   }
 
-  public async findUserById(userId: number): Promise<UserOld> {
-    const findUser: UserOld = this.users.find(user => user.id === userId);
-    if (!findUser) throw new HttpException(409, `You're not user`);
-
-    return findUser;
+  public async findUserById(userId: number): Promise<User> {
+    const user: User = await this.repository.findOne({ id: userId });
+    if (!user) throw new HttpException(409, `The user is not found`);
+    return user;
   }
 
-  public async createUser(userData: CreateUserDto): Promise<UserOld> {
+  public async createUser(userData: CreateUserDto): Promise<User> {
     if (isEmptyObject(userData)) throw new HttpException(400, `You're not userData`);
 
-    const findUser: UserOld = this.users.find(user => user.email === userData.email);
-    if (findUser) throw new HttpException(409, `You're email ${userData.email} already exists`);
+    // const findUser: UserOld = this.users.find(user => user.email === userData.email);
+    const user: User = await this.repository.findOne({ email: userData.email });
+    if (user) throw new HttpException(409, `You're email ${userData.email} already exists`);
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const createUserData: UserOld = { id: (this.users.length + 1), ...userData, password: hashedPassword };
+    const createUserData = {
+      ...userData, password: hashedPassword
+    }
+    return await this.repository.save(createUserData);
+    // const createUserData: UserOld = { id: (this.users.length + 1), ...userData, password: hashedPassword };
 
-    return createUserData;
+    // return createUserData;
   }
 
   public async updateUser(userId: number, userData: UserOld): Promise<UserOld[]> {
