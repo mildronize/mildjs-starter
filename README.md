@@ -15,6 +15,11 @@ Express + Typescript
   - [reflect-metadata](https://github.com/rbuckton/reflect-metadata) for class and method decorators
   - **Smart Validation** thanks to [class-validator](https://github.com/typestack/class-validator) with some nice annotations.
 
+
+## Doc
+
+It's available on `/docs`
+
 ## The starter boilerplate
 This project is based on the starter: 
 https://github.com/ljlm0402/typescript-express-starter, which provides features:
