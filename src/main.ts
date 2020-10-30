@@ -1,4 +1,4 @@
-import App from './@libs/app/app';
+import App from './app/app';
 
 import { IndexController } from './index/index.controller';
 import { UsersController } from './users/users.controller';

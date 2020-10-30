@@ -3,8 +3,8 @@ import { CreateUserDto } from './dtos/users.dto';
 import { User as UserOld } from './users.interface';
 import UserService from './users.service';
 import { Controller, Delete, Get, Middleware, Post, Put } from 'route-controller';
-import validationMiddleware from '../@libs/middlewares/validation.middleware';
-import { logger } from '../@libs/config';
+import validationMiddleware from '../app/middlewares/validation.middleware';
+import { logger } from '../app/config';
 
 import { Container } from 'typeorm-di';
 import { User } from './users.entity';

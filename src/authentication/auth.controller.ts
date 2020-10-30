@@ -5,7 +5,7 @@ import { User } from '../users/users.interface';
 import AuthService from './auth.service';
 
 import { Controller, Middleware, Post } from 'route-controller';
-import validationMiddleware from '../@libs/middlewares/validation.middleware';
+import validationMiddleware from '../app/middlewares/validation.middleware';
 import authMiddleware from './auth.middleware';
 
 @Controller()

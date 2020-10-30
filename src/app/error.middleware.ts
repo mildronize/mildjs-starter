@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { HttpException } from 'route-controller';
-import { logger } from '../config';
+import { logger } from './config';
 
 function errorMiddleware(error: Error, req: Request, res: Response, next: NextFunction) {
   let code: number;

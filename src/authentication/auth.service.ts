@@ -5,8 +5,8 @@ import { HttpException } from 'route-controller';
 import { DataStoredInToken, TokenData } from './auth.interface';
 import { User } from '../users/users.interface';
 import userModel from '../users/users.seed';
-import { isEmptyObject } from '../@libs/utils/util';
-import vars from '../@libs/config/vars';
+import { isEmptyObject } from '../app/util';
+import vars from '../app/config/vars';
 
 class AuthService {
   public users = userModel;

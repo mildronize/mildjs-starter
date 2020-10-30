@@ -1,5 +1,5 @@
 import request from 'supertest';
-import App from '../@libs/app/app';
+import App from '../app/app';
 import { CreateUserDto } from '../users/dtos/users.dto';
 import { AuthController } from './auth.controller';
 import { getControllerData } from 'route-controller';

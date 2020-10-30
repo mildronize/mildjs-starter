@@ -8,7 +8,7 @@ import morgan from 'morgan';
 // import { addExpressController } from './router';
 import errorMiddleware from './error.middleware';
 
-import { vars, logger } from '../config';
+import { vars, logger } from './config';
 
 import { Connection, createConnection, useContainer, Container } from 'typeorm-di';
 import { addExpressController } from 'route-controller';

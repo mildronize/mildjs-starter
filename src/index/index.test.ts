@@ -1,5 +1,5 @@
 import request from 'supertest';
-import App from '../@libs/app/app';
+import App from '../app/app';
 // import IndexRoute from './index.route';
 import { IndexController } from './index.controller';
 
