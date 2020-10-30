@@ -1,11 +1,10 @@
 import 'reflect-metadata'; // for decorator
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express, { NextFunction } from 'express';
+import express  from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
-// import { addExpressController } from './router';
 import errorMiddleware from './error.middleware';
 
 import { vars, logger } from './config';

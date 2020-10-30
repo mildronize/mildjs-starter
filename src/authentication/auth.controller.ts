@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
+import { Controller, Middleware, Post, validateType } from 'route-controller';
+
 import { CreateUserDto } from '../users/dtos/users.dto';
-import { RequestWithUser } from './auth.interface';
 import { User } from '../users/users.interface';
+
+import { RequestWithUser } from './auth.interface';
 import AuthService from './auth.service';
 
-import { Controller, Middleware, Post, validateType } from 'route-controller';
 import authMiddleware from './auth.middleware';
 
 @Controller()

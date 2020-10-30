@@ -1,13 +1,15 @@
-import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from './dtos/users.dto';
 import { HttpException } from 'route-controller';
-import { User as UserOld } from './users.interface';
-import userModel from './users.seed';
-import { isEmptyObject } from '../app/util';
-
 import { Service, Container, Repository, InjectRepository } from 'typeorm-di';
 
+import { isEmptyObject } from '../app/util';
+import * as bcrypt from 'bcrypt';
+
+import { CreateUserDto } from './dtos/users.dto';
 import { User } from './users.entity';
+
+import { User as UserOld } from './users.interface';
+import userModel from './users.seed';
+
 
 @Service()
 class UserService {
