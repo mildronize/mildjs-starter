@@ -8,4 +8,6 @@ export * from './decorators/utils';
 
 export * as response from './response';
 
+export * from './add-express-controller';
+
 // thanks router decorator from https://nehalist.io/routing-with-typescript-decorators/

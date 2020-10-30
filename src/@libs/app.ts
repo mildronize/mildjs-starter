@@ -5,17 +5,13 @@ import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
-import { Controller, RouteDecorator } from './router';
+import { addExpressController } from './router';
 import errorMiddleware from './middlewares/error.middleware';
 
 import vars from './config/vars';
 import logger from './config/logger';
-import { AuthController } from '../authentication/auth.controller';
 
 import { Connection, createConnection, useContainer, Container } from "typeorm-di";
-import { User as UserOld } from '../users/users.interface';
-import { log } from 'console';
-import { User } from '../users/users.entity';
 
 class App {
   public app: express.Application;
@@ -36,7 +32,8 @@ class App {
     this.initializeMiddlewares();
     await this.initializeDatabase();
     logger.info("Connected to the database");
-    this.initializeControllers(controllers);
+
+    addExpressController(this.app, controllers, logger);
     this.initializeSwagger();
     this.initializeErrorHandling();
 
@@ -92,39 +89,6 @@ class App {
     this.app.use(errorMiddleware);
   }
 
-  private initializeControllers(controllers: any[]) {
-    // Iterate over all our controllers and register our routes
-    controllers.forEach(controller => {
-      // This is our instantiated class
-      const instance = new controller();
-      logger.info(`Added controller: ${instance.constructor.name}`);
-
-      // The prefix saved to our controller
-      const prefix = Reflect.getMetadata('prefix', controller);
-      // Our `routes` array containing all our routes for this controller
-      const routes: Array<RouteDecorator> = Reflect.getMetadata('routes', controller);
-
-      const callInstance = (route: RouteDecorator) => (req: express.Request, res: express.Response) => {
-        instance[route.methodName](req, res);
-      }
-
-      // Iterate over all routes and register them to our express application 
-      routes.forEach((route: RouteDecorator) => {
-
-        if (route.hasOwnProperty("middleware")) {
-          // Call the middleware
-          this.app[route.requestMethod](prefix + route.path, route.middleware, callInstance(route));
-        } else {
-          this.app[route.requestMethod](prefix + route.path, callInstance(route));
-        }
-        logger.info(`Mapped route: [${route.requestMethod}] '${prefix}${route.path}'`);
-
-      });
-
-    });
-
-  }
-
   private initializeDatabase(): Promise<Connection> {
 
     // Import all entity
@@ -141,10 +105,6 @@ class App {
 
     return connection;
   }
-  // }).then(connection => {
-  //     logger.info("Connected");
-  // }).catch( err => logger.error(err) );
-
 
 }
 
