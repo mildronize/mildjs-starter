@@ -6,7 +6,7 @@ import { DataStoredInToken, TokenData } from './auth.interface';
 import { User } from '../users/users.interface';
 import userModel from '../users/users.seed';
 import { isEmptyObject } from '../app/util';
-import vars from '../app/config/vars';
+import { vars } from '../app/config';
 
 class AuthService {
   public users = userModel;

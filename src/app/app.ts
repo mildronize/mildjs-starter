@@ -100,7 +100,6 @@ class App {
 
     return connection;
   }
-
 }
 
 export default App;

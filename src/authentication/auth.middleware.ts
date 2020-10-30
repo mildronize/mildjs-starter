@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import { HttpException } from 'route-controller';
 import { DataStoredInToken, RequestWithUser } from './auth.interface';
 import userModel from '../users/users.seed';
-import vars from '../app/config/vars';
+import { vars } from '../app/config';
 
 function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
   const cookies = req.cookies;
