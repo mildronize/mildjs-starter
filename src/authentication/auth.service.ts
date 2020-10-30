@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { CreateUserDto } from '../users/dtos/users.dto';
-import HttpException from '../@libs/exceptions/HttpException';
+import { HttpException } from 'route-controller';
 import { DataStoredInToken, TokenData } from './auth.interface';
 import { User } from '../users/users.interface';
 import userModel from '../users/users.seed';

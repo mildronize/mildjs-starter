@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import HttpException from '../exceptions/HttpException';
+import { HttpException } from 'route-controller';
 import { logger } from '../config';
 
 function errorMiddleware(error: Error, req: Request, res: Response, next: NextFunction) {

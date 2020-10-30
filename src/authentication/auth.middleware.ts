@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import HttpException from '../@libs/exceptions/HttpException';
+import { HttpException } from 'route-controller';
 import { DataStoredInToken, RequestWithUser } from './auth.interface';
 import userModel from '../users/users.seed';
 import vars from '../@libs/config/vars';
