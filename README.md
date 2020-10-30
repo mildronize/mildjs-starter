@@ -4,7 +4,7 @@ Express + Typescript
 
 ## Features
 
-- Express Route Decorator (`route-controller`), special thanks for very good blog from [Kevin](https://nehalist.io/routing-with-typescript-decorators/) (Inspired by [nestjs](https://nestjs.com/), alternatively by [routing-controllers(https://github.com/typestack/routing-controllers))
+- Express Route Decorator [route-controller](https://github.com/mildronize/route-controller)), special thanks for very good blog from [Kevin](https://nehalist.io/routing-with-typescript-decorators/) (Inspired by [nestjs](https://nestjs.com/), alternatively by [routing-controllers](https://github.com/typestack/routing-controllers))
   - Supported decorator: `Get`, `Post`, `Put`, `Delete` , `Middleware`
 - Use [typeorm-di](https://github.com/mildronize/typeorm-di) it wraps the module:
   - [TypeORM](https://typeorm.io/)

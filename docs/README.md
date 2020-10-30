@@ -55,7 +55,8 @@ Note: `typeorm-di` is just the wrapper library of `typeorm`
 4. setup the controller
 
     ```typescript
-    import { Controller, Container } from "typeorm-di";
+    import { Container } from "typeorm-di";
+    import { Controller, Get } from 'route-controller';
     import UserService from './users.service';
 
     @Controller('/users')
