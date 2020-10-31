@@ -5,9 +5,11 @@ import express  from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
-import errorMiddleware from './error.middleware';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 import { vars, logger } from './config';
+import errorMiddleware from './error.middleware';
 
 import { Connection, createConnection, useContainer, Container } from 'typeorm-di';
 import { addExpressController } from 'route-controller';
@@ -16,7 +18,6 @@ class App {
   public app: express.Application;
   public port: string | number;
   public isProduction: boolean;
-  // public connection: Connection
 
   constructor(controllers: any[]) {
     this.app = express();
@@ -64,8 +65,8 @@ class App {
   }
 
   private initializeSwagger() {
-    const swaggerJSDoc = require('swagger-jsdoc');
-    const swaggerUi = require('swagger-ui-express');
+    // const swaggerJSDoc = require('swagger-jsdoc');
+    // const swaggerUi = require('swagger-ui-express');
 
     const options = {
       swaggerDefinition: {
