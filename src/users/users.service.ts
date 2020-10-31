@@ -23,6 +23,12 @@ class UserService {
     return user;
   }
 
+  public async findByEmail(email: string): Promise<User> {
+    const user: User = await this.repository.findOne({ email });
+    if (!user) throw new HttpException(409, `The user is not found`);
+    return user;
+  }
+
   public async create(userData: CreateUserDto): Promise<User> {
     if (isEmptyObject(userData)) throw new HttpException(400, `The data is not 'CreateUserDto' type`);
 

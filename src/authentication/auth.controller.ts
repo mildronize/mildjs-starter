@@ -2,12 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import { Controller, Middleware, Post, StatusCodes, validateType } from 'route-controller';
 
 import { CreateUserDto } from '../users/dtos/users.dto';
-import { User } from '../users/users.interface';
+import { User } from '../users/users.entity';
 
 import { RequestWithUser } from './auth.interface';
 import AuthService from './auth.service';
 
-import authMiddleware from './auth.middleware';
+import {validateAuth} from './auth.middleware';
 
 @Controller()
 export class AuthController {
@@ -31,7 +31,7 @@ export class AuthController {
     res.status(StatusCodes.OK).json({ data: user, message: 'login' });
   }
 
-  @Middleware(authMiddleware)
+  @Middleware(validateAuth)
   @Post('/logout')
   public async logOut(req: RequestWithUser, res: Response) {
     const userData: User = req.user;

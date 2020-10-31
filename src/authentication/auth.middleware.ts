@@ -2,33 +2,37 @@ import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { HttpException } from 'route-controller';
 import { DataStoredInToken, RequestWithUser } from './auth.interface';
-import userModel from '../users/users.seed';
+import { Container } from 'typeorm-di';
+import UserService from '../users/users.service';
 import { vars } from '../app/config';
 
-function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
-  const cookies = req.cookies;
+export async function validateAuth(req: RequestWithUser, res: Response, next: NextFunction) {
 
-  if (req.headers.authorization) {
-    const secret = vars.jwtSecret;
+    // const cookies = req.cookies;
 
-    try {
-      const requestToken = req.headers.authorization;
-      const verificationResponse = jwt.verify(requestToken, secret) as DataStoredInToken;
-      const userId = verificationResponse.id;
-      const findUser = userModel.find((user) => user.id === userId);
-
-      if (findUser) {
-        req.user = findUser;
-        next();
-      } else {
-        next(new HttpException(401, "Wrong authentication token: Can't find user"));
+    const userService: UserService = Container.get(UserService);
+  
+    if (req.headers.authorization) {
+      const secret = vars.jwtSecret;
+  
+      try {
+        const requestToken = req.headers.authorization;
+        const verificationResponse = jwt.verify(requestToken, secret) as DataStoredInToken;
+        const userId = verificationResponse.id;
+  
+        const findUser = await userService.findById(userId);
+  
+        if (findUser) {
+          req.user = findUser;
+          next();
+        } else {
+          next(new HttpException(401, "Wrong authentication token: Can't find user"));
+        }
+      } catch (error) {
+        next(new HttpException(401, 'Wrong authentication token'));
       }
-    } catch (error) {
-      next(new HttpException(401, 'Wrong authentication token'));
-    }
-  } else {
-    next(new HttpException(404, 'Authentication token missing'));
+    } else {
+      next(new HttpException(404, 'Authentication token missing'));
   }
+  
 }
-
-export default authMiddleware;

@@ -13,9 +13,6 @@ import { vars } from '../app/config';
 @Service()
 class AuthService {
 
-  @InjectRepository(User)
-  private repository: Repository<User>;
-
   public userService: UserService = Container.get(UserService);
 
   public async signup(userData: CreateUserDto): Promise<User> {
@@ -25,7 +22,7 @@ class AuthService {
   public async login(userData: CreateUserDto): Promise<{ cookie: string; user: User }> {
     if (isEmptyObject(userData)) throw new HttpException(400, `You're not userData`);
 
-    const user: User = await this.repository.findOne({ email: userData.email });
+    const user: User = await this.userService.findByEmail(userData.email);
     if (!user) throw new HttpException(409, `You're email ${userData.email} not found`);
 
     const isPasswordMatching: boolean = userData.password === user.password;
@@ -40,7 +37,7 @@ class AuthService {
   public async logout(userData: CreateUserDto): Promise<User> {
     if (isEmptyObject(userData)) throw new HttpException(400, `You're not userData`);
 
-    const user: User = await this.repository.findOne({ email: userData.email });
+    const user: User = await this.userService.findByEmail(userData.email);
     if (!user) throw new HttpException(409, `You're email ${userData.email} not found`);
 
     return user;
