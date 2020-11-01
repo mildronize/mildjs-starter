@@ -1,9 +1,7 @@
+import { UserModule } from './users/users.module';
+import { AuthModule } from './authentication/auth.module';
 import App from './app/app';
 
-import { IndexController } from './index/index.controller';
-import { UsersController } from './users/users.controller';
-import { AuthController } from './authentication/auth.controller';
-
-const app = new App([IndexController, UsersController, AuthController]);
+const app = new App([UserModule, AuthModule]);
 
 app.listen();

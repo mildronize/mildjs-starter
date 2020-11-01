@@ -3,14 +3,14 @@ import * as jwt from 'jsonwebtoken';
 import { HttpException , Container} from 'route-controller';
 import { DataStoredInToken, RequestWithUser } from './auth.interface';
 // import { Container } from 'typeorm';
-import UserService from '../users/users.service';
+import {UsersService} from '../users/users.service';
 import { vars } from '../app/config';
 
 export async function validateAuth(req: RequestWithUser, res: Response, next: NextFunction) {
 
     // const cookies = req.cookies;
 
-    const userService: UserService = Container.get(UserService);
+    const userService: UsersService = Container.get(UsersService);
   
     if (req.headers.authorization) {
       const secret = vars.jwtSecret;

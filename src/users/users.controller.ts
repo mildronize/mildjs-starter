@@ -1,16 +1,19 @@
 import { Request, Response } from 'express';
-import { Controller, Delete, Get, Middleware, Post,Put, validateType, StatusCodes , Container} from 'route-controller';
+import { Controller, Delete, Get, Middleware, Post, Put, validateType, StatusCodes, Container } from 'route-controller';
 // import { Container } from 'typeorm-di';
 
 import { User } from './users.entity';
-import UserService from './users.service';
+import { UsersService } from './users.service';
 
 import { CreateUserDto } from './dtos/users.dto';
 
 @Controller('/users')
 export class UsersController {
 
-  public userService: UserService = Container.get(UserService);
+  // public userService: UsersService = Container.get(UsersService);
+  constructor(
+    public userService: UsersService
+  ){}
 
   @Get('/')
   public async getUsers(req: Request, res: Response) {
@@ -25,16 +28,17 @@ export class UsersController {
     res.status(StatusCodes.OK).json({ data });
   }
 
-  @Middleware(validateType(CreateUserDto))
+  
   @Post('/')
+  @Middleware(validateType(CreateUserDto))
   public async createUser(req: Request, res: Response) {
     const userData: CreateUserDto = req.body;
     const data: User = await this.userService.create(userData);
     res.status(StatusCodes.CREATED).json({ data });
   }
 
-  @Middleware(validateType(CreateUserDto, true))
   @Put('/:id(\\d+)')
+  @Middleware(validateType(CreateUserDto, true))
   public async updateUser(req: Request, res: Response) {
     const userId: number = Number(req.params.id);
     const userData: User = req.body;

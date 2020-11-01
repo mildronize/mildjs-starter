@@ -7,7 +7,7 @@ import { User } from './users.entity';
 import { assignObject } from '../app/util';
 
 @Service()
-class UserService {
+export class UsersService {
   @InjectRepository(User)
   private repository: Repository<User>;
 
@@ -57,5 +57,3 @@ class UserService {
     return this.repository.delete({ id });; 
   }
 }
-
-export default UserService;

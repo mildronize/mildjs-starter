@@ -12,27 +12,27 @@ import { vars, logger } from './config';
 import errorMiddleware from './error.middleware';
 
 // import { , useContainer, Container } from 'typeorm-di';
-import { addExpressController, Container, Connection, createConnection , useContainer } from 'route-controller';
+import { addExpressController, Container, Connection, createConnection , useContainer, useExpressServer } from 'route-controller';
 
 class App {
   public app: express.Application;
   public port: string | number;
   public isProduction: boolean;
 
-  constructor(controllers: any[]) {
+  constructor(modules: any[]) {
     this.app = express();
     this.port = vars.port || 3000;
     this.isProduction = vars.env === 'production' ? true : false;
 
-    this.initApp(controllers);
+    this.initApp(modules);
   }
 
-  private async initApp(controllers: any[]) {
+  private async initApp(modules: any[]) {
     this.initializeMiddlewares();
     await this.initializeDatabase();
     logger.info('Connected to the database');
 
-    addExpressController(this.app, controllers);
+    useExpressServer(this.app, modules);
     this.initializeSwagger();
     this.initializeErrorHandling();
     logger.info('The server is successfully started.');

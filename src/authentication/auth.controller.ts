@@ -5,13 +5,13 @@ import { CreateUserDto } from '../users/dtos/users.dto';
 import { User } from '../users/users.entity';
 
 import { RequestWithUser } from './auth.interface';
-import AuthService from './auth.service';
-
+import {AuthService} from './auth.service';
 import {validateAuth} from './auth.middleware';
 
-@Controller()
+@Controller('/auth')
 export class AuthController {
-  public authService = new AuthService();
+
+  constructor(private authService: AuthService){}
 
   @Middleware(validateType(CreateUserDto))
   @Post('/signup')
@@ -26,9 +26,13 @@ export class AuthController {
   @Post('/login')
   public async logIn(req: Request, res: Response) {
     const userData: CreateUserDto = req.body;
-    const { cookie, user } = await this.authService.login(userData);
-    res.setHeader('Set-Cookie', [cookie]);
-    res.status(StatusCodes.OK).json({ data: user, message: 'login' });
+    const { token, user } = await this.authService.login(userData);
+    let data;
+    if (user && user.password === userData.password) {
+      const { password, ...result } = user;
+      data = result;
+    }
+    res.status(StatusCodes.OK).json({ data , "authorization": token });
   }
 
   @Middleware(validateAuth)
