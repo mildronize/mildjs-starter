@@ -11,8 +11,8 @@ import swaggerUi from 'swagger-ui-express';
 import { vars, logger } from './config';
 import errorMiddleware from './error.middleware';
 
-import { Connection, createConnection, useContainer, Container } from 'typeorm-di';
-import { addExpressController } from 'route-controller';
+// import { , useContainer, Container } from 'typeorm-di';
+import { addExpressController, Container, Connection, createConnection , useContainer } from 'route-controller';
 
 class App {
   public app: express.Application;

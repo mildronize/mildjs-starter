@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Controller, Delete, Get, Middleware, Post,Put, validateType, StatusCodes } from 'route-controller';
-import { Container } from 'typeorm-di';
+import { Controller, Delete, Get, Middleware, Post,Put, validateType, StatusCodes , Container} from 'route-controller';
+// import { Container } from 'typeorm-di';
 
 import { User } from './users.entity';
 import UserService from './users.service';

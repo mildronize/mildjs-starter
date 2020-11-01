@@ -1,5 +1,4 @@
-import { HttpException } from 'route-controller';
-import { Service, DeleteResult, Repository, InjectRepository } from 'typeorm-di';
+import { HttpException , Service, InjectRepository, DeleteResult, Repository} from 'route-controller';
 
 import { isEmptyObject } from '../app/util';
 

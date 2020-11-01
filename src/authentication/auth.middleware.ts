@@ -1,8 +1,8 @@
 import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { HttpException } from 'route-controller';
+import { HttpException , Container} from 'route-controller';
 import { DataStoredInToken, RequestWithUser } from './auth.interface';
-import { Container } from 'typeorm-di';
+// import { Container } from 'typeorm';
 import UserService from '../users/users.service';
 import { vars } from '../app/config';
 
