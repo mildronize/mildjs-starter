@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Controller, Middleware, Post, StatusCodes, validateType, HttpException } from 'route-controller';
+import { Controller, Middleware, Post, StatusCodes, validateType, HttpException, responseFormat } from 'route-controller';
 
 import { CreateUserDto } from '../users/dtos/users.dto';
 import { User } from '../users/users.entity';
@@ -14,14 +14,14 @@ import { DataStoredInToken, RequestWithUser } from './auth.interface';
 
 @Controller('/auth')
 export class AuthController {
-  constructor(private authService: AuthService, private userService: UsersService) {}
+  constructor(private authService: AuthService, private userService: UsersService) { }
 
   @Middleware(validateType(CreateUserDto))
   @Post('/signup')
   public async signUp(req: Request, res: Response) {
     const userData: CreateUserDto = req.body;
     const signUpUserData: User = await this.userService.create(userData);
-    res.status(StatusCodes.CREATED).json({ data: signUpUserData, message: 'signup' });
+    responseFormat(res, { data: signUpUserData });
   }
 
   @Middleware(validateType(CreateUserDto))
@@ -41,29 +41,34 @@ export class AuthController {
       const { password, ...result } = user;
       data = result;
     }
-    res.status(StatusCodes.OK).json({ data, authorization: token });
+    responseFormat(res, {
+      data: { user, authorization: token }
+    });
+
   }
 
-  @Middleware(validateAuth)
   @Post('/logout')
-  public async logOut(req: RequestWithUser, res: Response) {
-    const userData: User = req.user;
+  @Middleware(validateAuth)
+  public async logOut(req: Request, res: Response) {
+    // const userData: User = req.user;
 
-    if (isEmptyObject(userData)) throw new HttpException(400, `You're not userData`);
+    // if (isEmptyObject(userData)) throw new HttpException(400, `You're not userData`);
 
-    const logOutUserData: User = await this.userService.findByEmail(userData.email);
-    if (!logOutUserData) throw new HttpException(409, `You're email ${userData.email} not found`);
-    res.status(StatusCodes.OK).json({ message: 'logout' });
+    // const logOutUserData: User = await this.userService.findByEmail(userData.email);
+    // if (!logOutUserData) throw new HttpException(409, `You're email ${userData.email} not found`);
+    responseFormat(res, { message: 'logout' });
   }
 
   @Post('/test')
-  @Middleware(validateAuth)
-  public async testAuth(req: RequestWithUser, res: Response) {
+  @Middleware(validateType(CreateUserDto), validateAuth)
+  public async testAuth(req: Request, res: Response) {
     const secret = vars.jwtSecret;
     const requestToken = req.headers.authorization;
+
     const verificationResponse = jwt.verify(requestToken, secret) as DataStoredInToken;
-    const userId = verificationResponse.id;
-    const findUser = await this.userService.findById(userId);
-    res.status(StatusCodes.OK).json({ message: `Hi ${findUser.email}` });
+    const findUser = await this.userService.findById(verificationResponse.id);
+    responseFormat(res, { message: `Hi ${findUser.email}` });
   }
+
+  
 }

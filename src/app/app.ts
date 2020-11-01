@@ -13,7 +13,6 @@ import errorMiddleware from './error.middleware';
 
 // import { , useContainer, Container } from 'typeorm-di';
 import {
-  addExpressController,
   Container,
   Connection,
   createConnection,
