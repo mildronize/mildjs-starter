@@ -1,4 +1,4 @@
-import { HttpException , Service, InjectRepository, DeleteResult, Repository} from 'route-controller';
+import { HttpException, Service, InjectRepository, DeleteResult, Repository } from 'route-controller';
 
 import { isEmptyObject } from '../app/util';
 
@@ -33,7 +33,7 @@ export class UsersService {
 
     const findUser: User = await this.repository.findOne({ email: userData.email });
     if (findUser) throw new HttpException(409, `You're email ${userData.email} already exists`);
-  
+
     let user = assignObject(new User(), userData);
 
     // Note: The password should be hashed from the client side
@@ -54,6 +54,6 @@ export class UsersService {
     const user: User = await this.repository.findOne({ id });
     if (!user) throw new HttpException(409, `You're not user`);
 
-    return this.repository.delete({ id });; 
+    return this.repository.delete({ id });
   }
 }

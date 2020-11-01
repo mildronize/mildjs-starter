@@ -1,7 +1,7 @@
 import 'reflect-metadata'; // for decorator
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express  from 'express';
+import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
@@ -12,7 +12,14 @@ import { vars, logger } from './config';
 import errorMiddleware from './error.middleware';
 
 // import { , useContainer, Container } from 'typeorm-di';
-import { addExpressController, Container, Connection, createConnection , useContainer, useExpressServer } from 'route-controller';
+import {
+  addExpressController,
+  Container,
+  Connection,
+  createConnection,
+  useContainer,
+  useExpressServer,
+} from 'route-controller';
 
 class App {
   public app: express.Application;

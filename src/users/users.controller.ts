@@ -9,11 +9,8 @@ import { CreateUserDto } from './dtos/users.dto';
 
 @Controller('/users')
 export class UsersController {
-
   // public userService: UsersService = Container.get(UsersService);
-  constructor(
-    public userService: UsersService
-  ){}
+  constructor(public userService: UsersService) {}
 
   @Get('/')
   public async getUsers(req: Request, res: Response) {
@@ -28,7 +25,6 @@ export class UsersController {
     res.status(StatusCodes.OK).json({ data });
   }
 
-  
   @Post('/')
   @Middleware(validateType(CreateUserDto))
   public async createUser(req: Request, res: Response) {
@@ -51,6 +47,6 @@ export class UsersController {
   public async deleteUser(req: Request, res: Response) {
     const userId: number = Number(req.params.id);
     await this.userService.delete(userId);
-    res.status(StatusCodes.OK).json({ message: "Delete successfully" });
+    res.status(StatusCodes.OK).json({ message: 'Delete successfully' });
   }
 }
