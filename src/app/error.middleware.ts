@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { HttpException, StatusCodes } from 'route-controller';
+import { HttpException, StatusCodes , responseFormat} from 'route-controller';
 import { logger } from './config';
 
 function errorMiddleware(error: Error, req: Request, res: Response, next: NextFunction) {
@@ -12,8 +12,12 @@ function errorMiddleware(error: Error, req: Request, res: Response, next: NextFu
     code = StatusCodes.BAD_REQUEST;
   }
 
-  logger.error(`[${code}]: ${message}`);
-  res.status(code).json({ message, status: 'error' });
+  logger.info(`[App Error Handler] [${code}]: ${message}`);
+  responseFormat(res, {
+    code,
+    message,
+    status: 'error'
+  });
 }
 
 export default errorMiddleware;
