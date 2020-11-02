@@ -5,7 +5,7 @@ import { CreateUserDto } from '../users/dtos/users.dto';
 import { User } from '../users/users.entity';
 
 import { AuthService } from './auth.service';
-import { validateAuth } from './auth.middleware';
+import { isAuth } from './auth.middleware';
 import { UsersService } from '../users/users.service';
 import { isEmptyObject } from '../app/util';
 import * as jwt from 'jsonwebtoken';
@@ -47,20 +47,15 @@ export class AuthController {
 
   }
 
+  @Use(isAuth)
   @Post('/logout')
-  @Use(validateAuth)
   public async logOut(req: Request, res: Response) {
-    // const userData: User = req.user;
-
-    // if (isEmptyObject(userData)) throw new HttpException(400, `You're not userData`);
-
-    // const logOutUserData: User = await this.userService.findByEmail(userData.email);
-    // if (!logOutUserData) throw new HttpException(409, `You're email ${userData.email} not found`);
+ 
     responseFormat(res, { message: 'logout' });
   }
 
   @Post('/test')
-  @Use(validateType(CreateUserDto), validateAuth)
+  @Use(validateType(CreateUserDto), isAuth)
   public async testAuth(req: Request, res: Response) {
     const secret = vars.jwtSecret;
     const requestToken = req.headers.authorization;
@@ -70,5 +65,4 @@ export class AuthController {
     responseFormat(res, { message: `Hi ${findUser.email}` });
   }
 
-  
 }

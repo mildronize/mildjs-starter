@@ -6,9 +6,9 @@ import { User } from './users.entity';
 import { UsersService } from './users.service';
 
 import { CreateUserDto } from './dtos/users.dto';
-import { validateAuth } from '../auth/auth.middleware';
+import { isAuth } from '../auth/auth.middleware';
 
-@Use(validateAuth)
+@Use(isAuth)
 @Controller('/users')
 export class UsersController {
 

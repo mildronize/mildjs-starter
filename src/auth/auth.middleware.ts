@@ -2,12 +2,10 @@ import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { HttpException, Container } from 'route-controller';
 import { DataStoredInToken, RequestWithUser } from './auth.interface';
-// import { Container } from 'typeorm';
 import { UsersService } from '../users/users.service';
 import { vars } from '../app/config';
 
-export async function validateAuth(req: RequestWithUser, res: Response, next: NextFunction) {
-  // const cookies = req.cookies;
+export async function isAuth(req: RequestWithUser, res: Response, next: NextFunction) {
 
   const userService: UsersService = Container.get(UsersService);
 
