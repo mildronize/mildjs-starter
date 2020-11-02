@@ -5,7 +5,7 @@ import { CreateUserDto } from '../users/dtos/users.dto';
 import { User } from '../users/users.entity';
 
 import { AuthService } from './auth.service';
-import { isAuth } from './auth.middleware';
+import { isAuth, isRole } from './auth.middleware';
 import { UsersService } from '../users/users.service';
 import { isEmptyObject } from '../app/util';
 import * as jwt from 'jsonwebtoken';
@@ -50,19 +50,21 @@ export class AuthController {
   @Use(isAuth)
   @Post('/logout')
   public async logOut(req: Request, res: Response) {
- 
     responseFormat(res, { message: 'logout' });
   }
 
   @Post('/test')
-  @Use(validateType(CreateUserDto), isAuth)
-  public async testAuth(req: Request, res: Response) {
-    const secret = vars.jwtSecret;
-    const requestToken = req.headers.authorization;
+  @Use(isRole())
+  public async testAuth(req: RequestWithUser, res: Response) {
+    if(!req.user) new HttpException(StatusCodes.UNAUTHORIZED, 'Wrong authentication token');
+    responseFormat(res, { message: `Hi ${req.user.email}` });
+  }
 
-    const verificationResponse = jwt.verify(requestToken, secret) as DataStoredInToken;
-    const findUser = await this.userService.findById(verificationResponse.id);
-    responseFormat(res, { message: `Hi ${findUser.email}` });
+  @Post('/test-role')
+  @Use(isRole('student'))
+  public async testRole(req: RequestWithUser, res: Response) {
+    if(!req.user) new HttpException(StatusCodes.UNAUTHORIZED, 'Wrong authentication token');
+    responseFormat(res, { message: `Hi ${req.user.email}` });
   }
 
 }

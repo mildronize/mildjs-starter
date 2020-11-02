@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
+type Role = 'teacher' | 'student' | 'admin' ;
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -13,4 +15,7 @@ export class User {
 
   @Column({ nullable: true })
   address: string;
+
+  @Column({ nullable: true })
+  role: Role;
 }

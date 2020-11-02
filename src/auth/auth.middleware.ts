@@ -1,9 +1,11 @@
 import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { HttpException, Container } from 'route-controller';
+import { HttpException, Container, StatusCodes } from 'route-controller';
 import { DataStoredInToken, RequestWithUser } from './auth.interface';
 import { UsersService } from '../users/users.service';
-import { vars } from '../app/config';
+import { logger, vars } from '../app/config';
+import { RequestHandler } from 'express';
+import connect from 'connect';
 
 export async function isAuth(req: RequestWithUser, res: Response, next: NextFunction) {
 
@@ -32,3 +34,31 @@ export async function isAuth(req: RequestWithUser, res: Response, next: NextFunc
     next(new HttpException(404, 'Authentication token missing'));
   }
 }
+
+
+export function validateRole(...roles: string[]): RequestHandler {
+  return async (req: RequestWithUser, res: Response, next: NextFunction) => {
+
+    const userRole = req.user.role;
+    if (userRole === 'admin') next();
+    else {
+      if (roles.includes(userRole)) next();
+
+      else next(new HttpException(
+        StatusCodes.UNAUTHORIZED,
+        `Permission denied: The role (${userRole}) don't allow to access`)
+      );
+    }
+  };
+}
+
+export function isRole(...allowedRole: string[]): RequestHandler {
+  const chain = connect();
+  chain.use(isAuth);
+  chain.use(validateRole(...allowedRole));
+  return chain;
+}
+
+
+
+
