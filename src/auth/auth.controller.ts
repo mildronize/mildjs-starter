@@ -14,7 +14,7 @@ import { DataStoredInToken, RequestWithUser } from './auth.interface';
 
 @Controller('/auth')
 export class AuthController {
-  constructor(private authService: AuthService, private userService: UsersService) { }
+  constructor(private authService: AuthService, private userService: UsersService) {}
 
   @Use(validateType(CreateUserDto))
   @Post('/signup')
@@ -42,9 +42,8 @@ export class AuthController {
       data = result;
     }
     responseFormat(res, {
-      data: { user, authorization: token }
+      data: { user, authorization: token },
     });
-
   }
 
   @Use(isAuth)
@@ -56,15 +55,14 @@ export class AuthController {
   @Post('/test')
   @Use(isRole())
   public async testAuth(req: RequestWithUser, res: Response) {
-    if(!req.user) new HttpException(StatusCodes.UNAUTHORIZED, 'Wrong authentication token');
+    if (!req.user) new HttpException(StatusCodes.UNAUTHORIZED, 'Wrong authentication token');
     responseFormat(res, { message: `Hi ${req.user.email}` });
   }
 
   @Post('/test-role')
   @Use(isRole('student'))
   public async testRole(req: RequestWithUser, res: Response) {
-    if(!req.user) new HttpException(StatusCodes.UNAUTHORIZED, 'Wrong authentication token');
+    if (!req.user) new HttpException(StatusCodes.UNAUTHORIZED, 'Wrong authentication token');
     responseFormat(res, { message: `Hi ${req.user.email}` });
   }
-
 }

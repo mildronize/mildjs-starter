@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Controller, Delete, Get, Use, Post, Put, validateType, StatusCodes, Container } from 'route-controller';
-// import { Container } from 'typeorm-di';
+import { Controller, Delete, Get, Use, Post, Put, validateType, StatusCodes } from 'route-controller';
+import { Container } from 'typeorm-di';
 
 import { User } from './users.entity';
 import { UsersService } from './users.service';
@@ -11,7 +11,6 @@ import { isAuth } from '../auth/auth.middleware';
 @Use(isAuth)
 @Controller('/users')
 export class UsersController {
-
   constructor(public userService: UsersService) {}
 
   @Get('/')

@@ -11,14 +11,8 @@ import swaggerUi from 'swagger-ui-express';
 import { vars, logger } from './config';
 import errorMiddleware from './error.middleware';
 
-// import { , useContainer, Container } from 'typeorm-di';
-import {
-  Container,
-  Connection,
-  createConnection,
-  useContainer,
-  useExpressServer,
-} from 'route-controller';
+import { useExpressServer } from 'route-controller';
+import { Connection, createConnection, useContainer, Container } from 'typeorm-di';
 
 class App {
   public app: express.Application;
@@ -38,7 +32,8 @@ class App {
     await this.initializeDatabase();
     logger.info('Connected to the database');
 
-    useExpressServer(this.app, modules);
+    useExpressServer(this.app, modules, { container: Container });
+
     this.initializeSwagger();
     this.initializeErrorHandling();
     logger.info('The server is successfully started.');

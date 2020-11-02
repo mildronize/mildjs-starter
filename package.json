@@ -9,7 +9,9 @@
     "format": "prettier --write \"src/**/*.ts\" ",
     "build:watch": "tsc -w",
     "build": "tsc",
-    "update:route-controller": "ncu route-controller -u && npm install"
+    "route:update": "ncu route-controller -u && npm install",
+    "route:link": "npm unlink route-controller && npm link route-controller",
+    "route:install": "npm install route-controller"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -28,13 +30,16 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "reflect-metadata": "^0.1.13",
-    "route-controller": "^1.0.1",
+    "route-controller": "^1.1.0",
     "sqlite3": "^5.0.0",
     "swagger-jsdoc": "^4.3.1",
     "swagger-ui-express": "^4.1.4",
     "ts-jest": "^26.4.3",
     "ts-node": "^9.0.0",
+    "typedi": "^0.8.0",
     "typeorm": "^0.2.28",
+    "typeorm-di": "0.0.4",
+    "typeorm-typedi-extensions": "^0.2.3",
     "typescript": "^4.0.5",
     "winston": "^3.3.3"
   },

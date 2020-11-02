@@ -1,8 +1,8 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { CreateUserDto } from '../users/dtos/users.dto';
-import { Repository } from 'typeorm';
-import { HttpException, Service, Container, InjectRepository } from 'route-controller';
+import { Repository, InjectRepository, Service, Container } from 'typeorm-di';
+import { HttpException } from 'route-controller';
 import { DataStoredInToken, TokenData } from './auth.interface';
 import { User } from '../users/users.entity';
 import { vars } from '../app/config';

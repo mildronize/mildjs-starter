@@ -1,7 +1,7 @@
 import { Module } from 'route-controller';
-import { IndexController} from './index.controller';
+import { IndexController } from './index.controller';
 
 @Module({
-  controllers: [IndexController]
+  controllers: [IndexController],
 })
 export class IndexModule {}
