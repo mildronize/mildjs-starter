@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Controller, Middleware, Post, StatusCodes, validateType, HttpException, responseFormat } from 'route-controller';
+import { Controller, Use, Post, StatusCodes, validateType, HttpException, responseFormat } from 'route-controller';
 
 import { CreateUserDto } from '../users/dtos/users.dto';
 import { User } from '../users/users.entity';
@@ -16,7 +16,7 @@ import { DataStoredInToken, RequestWithUser } from './auth.interface';
 export class AuthController {
   constructor(private authService: AuthService, private userService: UsersService) { }
 
-  @Middleware(validateType(CreateUserDto))
+  @Use(validateType(CreateUserDto))
   @Post('/signup')
   public async signUp(req: Request, res: Response) {
     const userData: CreateUserDto = req.body;
@@ -24,7 +24,7 @@ export class AuthController {
     responseFormat(res, { data: signUpUserData });
   }
 
-  @Middleware(validateType(CreateUserDto))
+  @Use(validateType(CreateUserDto))
   @Post('/login')
   public async logIn(req: Request, res: Response) {
     const userData: CreateUserDto = req.body;
@@ -48,7 +48,7 @@ export class AuthController {
   }
 
   @Post('/logout')
-  @Middleware(validateAuth)
+  @Use(validateAuth)
   public async logOut(req: Request, res: Response) {
     // const userData: User = req.user;
 
@@ -60,7 +60,7 @@ export class AuthController {
   }
 
   @Post('/test')
-  @Middleware(validateType(CreateUserDto), validateAuth)
+  @Use(validateType(CreateUserDto), validateAuth)
   public async testAuth(req: Request, res: Response) {
     const secret = vars.jwtSecret;
     const requestToken = req.headers.authorization;

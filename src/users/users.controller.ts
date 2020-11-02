@@ -1,15 +1,17 @@
 import { Request, Response } from 'express';
-import { Controller, Delete, Get, Middleware, Post, Put, validateType, StatusCodes, Container } from 'route-controller';
+import { Controller, Delete, Get, Use, Post, Put, validateType, StatusCodes, Container } from 'route-controller';
 // import { Container } from 'typeorm-di';
 
 import { User } from './users.entity';
 import { UsersService } from './users.service';
 
 import { CreateUserDto } from './dtos/users.dto';
+import { validateAuth } from '../auth/auth.middleware';
 
+@Use(validateAuth)
 @Controller('/users')
 export class UsersController {
-  // public userService: UsersService = Container.get(UsersService);
+
   constructor(public userService: UsersService) {}
 
   @Get('/')
@@ -26,7 +28,7 @@ export class UsersController {
   }
 
   @Post('/')
-  @Middleware(validateType(CreateUserDto))
+  @Use(validateType(CreateUserDto))
   public async createUser(req: Request, res: Response) {
     const userData: CreateUserDto = req.body;
     const data: User = await this.userService.create(userData);
@@ -34,7 +36,7 @@ export class UsersController {
   }
 
   @Put('/:id(\\d+)')
-  @Middleware(validateType(CreateUserDto, true))
+  @Use(validateType(CreateUserDto, true))
   public async updateUser(req: Request, res: Response) {
     const userId: number = Number(req.params.id);
     const userData: User = req.body;
