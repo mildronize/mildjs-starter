@@ -16,7 +16,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "route:install"
+      "pre-commit": "npm run route:install"
     }
   },
   "dependencies": {
