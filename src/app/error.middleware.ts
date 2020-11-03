@@ -7,7 +7,7 @@ function errorMiddleware(error: Error, req: Request, res: Response, next: NextFu
   let message: string = error.message || 'Something went wrong';
 
   if (error instanceof HttpException) {
-    code = error.toJSON().code;
+    code = (error as HttpException).code;
   } else {
     code = StatusCodes.BAD_REQUEST;
   }

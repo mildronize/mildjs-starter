@@ -17,18 +17,18 @@ import { Connection, createConnection, useContainer, Container } from 'typeorm-d
 class App {
   private app: express.Application;
   public port: string | number;
-  public isProduction: boolean;
+  public env: string;
   private modules: any[];
 
   constructor(modules: any[]) {
     this.app = express();
+    this.env = vars.env;
     this.port = vars.port || 3000;
-    this.isProduction = vars.env === 'production' ? true : false;
+    if( this.env === "test") this.port = 3009;
     this.modules = modules;
   }
 
   public async init() {
-    
     this.initializeMiddlewares();
     await this.initializeDatabase();
     logger.info('Connected to the database');
@@ -52,7 +52,7 @@ class App {
   }
 
   private initializeMiddlewares() {
-    if (this.isProduction) {
+    if (this.env === "production") {
       this.app.use(hpp());
       this.app.use(helmet());
       this.app.use(morgan('combined'));

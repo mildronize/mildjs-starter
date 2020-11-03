@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { app } from '../src/main';
+import { app } from '../src/app/app.module';
 
 describe('AppController (e2e)', () => {
   
