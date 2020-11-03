@@ -12,7 +12,7 @@
     "build": "tsc",
     "route:update": "ncu route-controller -u && npm install",
     "route:link": "npm unlink route-controller && npm link route-controller",
-    "route:install": "npm install route-controller"
+    "route:unlink": "npm install route-controller"
   },
   "husky": {
     "hooks": {
@@ -36,7 +36,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "reflect-metadata": "^0.1.13",
-    "route-controller": "^1.1.0",
+    "route-controller": "^1.2.0",
     "sqlite3": "^5.0.0",
     "swagger-jsdoc": "^4.3.1",
     "swagger-ui-express": "^4.1.4",

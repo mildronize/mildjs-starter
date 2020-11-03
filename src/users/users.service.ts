@@ -2,15 +2,17 @@ import { HttpException } from 'route-controller';
 import { DeleteResult, Repository, InjectRepository, Service } from 'typeorm-di';
 
 import { isEmptyObject } from '../app/util';
-
 import { CreateUserDto } from './dtos/users.dto';
 import { User } from './users.entity';
 import { assignObject } from '../app/util';
 
 @Service()
 export class UsersService {
-  @InjectRepository(User)
-  private repository: Repository<User>;
+
+  constructor(
+    @InjectRepository(User)
+    private repository: Repository<User>
+  ){}
 
   public findAll(): Promise<User[]> {
     const users = this.repository.find();

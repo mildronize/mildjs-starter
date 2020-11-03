@@ -1,12 +1,11 @@
 import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { HttpException, StatusCodes } from 'route-controller';
+import { HttpException, StatusCodes , combineMiddlewares} from 'route-controller';
 import { Container } from 'typeorm-di';
 import { DataStoredInToken, RequestWithUser } from './auth.interface';
 import { UsersService } from '../users/users.service';
 import { logger, vars } from '../app/config';
 import { RequestHandler } from 'express';
-import connect from 'connect';
 
 export async function isAuth(req: RequestWithUser, res: Response, next: NextFunction) {
   const userService: UsersService = Container.get(UsersService);
@@ -53,8 +52,5 @@ export function validateRole(...roles: string[]): RequestHandler {
 }
 
 export function isRole(...allowedRole: string[]): RequestHandler {
-  const chain = connect();
-  chain.use(isAuth);
-  chain.use(validateRole(...allowedRole));
-  return chain;
+  return combineMiddlewares(isAuth, validateRole(...allowedRole));
 }
