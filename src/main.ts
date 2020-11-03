@@ -5,6 +5,12 @@ import { AuthModule } from './auth/auth.module';
 import { IndexModule } from './index/index.module';
 // import { mainModule } from 'process';
 
+
 export const app = new App([UserModule, AuthModule, IndexModule]);
 
-app.init();
+async function main() {
+    await app.init();
+}
+
+
+main();

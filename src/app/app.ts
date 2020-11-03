@@ -28,6 +28,7 @@ class App {
   }
 
   public async init() {
+    
     this.initializeMiddlewares();
     await this.initializeDatabase();
     logger.info('Connected to the database');
@@ -36,9 +37,8 @@ class App {
 
     this.initializeSwagger();
     this.initializeErrorHandling();
+    this.listen();
     logger.info('The server is successfully started.');
-    return this.app.listen();
-    // logger.info('The server is successfully started.');
   }
 
   public listen() {
