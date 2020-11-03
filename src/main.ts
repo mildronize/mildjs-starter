@@ -3,7 +3,8 @@ import App from './app/app';
 import { UserModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { IndexModule } from './index/index.module';
+// import { mainModule } from 'process';
 
-const app = new App([UserModule, AuthModule, IndexModule]);
+export const app = new App([UserModule, AuthModule, IndexModule]);
 
-app.listen();
+app.init();

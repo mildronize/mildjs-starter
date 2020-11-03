@@ -15,28 +15,30 @@ import { useExpressServer } from 'route-controller';
 import { Connection, createConnection, useContainer, Container } from 'typeorm-di';
 
 class App {
-  public app: express.Application;
+  private app: express.Application;
   public port: string | number;
   public isProduction: boolean;
+  private modules: any[];
 
   constructor(modules: any[]) {
     this.app = express();
     this.port = vars.port || 3000;
     this.isProduction = vars.env === 'production' ? true : false;
-
-    this.initApp(modules);
+    this.modules = modules;
   }
 
-  private async initApp(modules: any[]) {
+  public async init() {
     this.initializeMiddlewares();
     await this.initializeDatabase();
     logger.info('Connected to the database');
 
-    useExpressServer(this.app, modules, { container: Container });
+    useExpressServer(this.app, this.modules, { container: Container });
 
     this.initializeSwagger();
     this.initializeErrorHandling();
     logger.info('The server is successfully started.');
+    return this.app.listen();
+    // logger.info('The server is successfully started.');
   }
 
   public listen() {
@@ -45,7 +47,7 @@ class App {
     });
   }
 
-  public getServer() {
+  public getHttpServer() {
     return this.app;
   }
 
@@ -66,8 +68,6 @@ class App {
   }
 
   private initializeSwagger() {
-    // const swaggerJSDoc = require('swagger-jsdoc');
-    // const swaggerUi = require('swagger-ui-express');
 
     const options = {
       swaggerDefinition: {

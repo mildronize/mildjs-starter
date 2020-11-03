@@ -19,7 +19,7 @@ describe('Testing Auth', () => {
       const app = new App([AuthController]);
       const { prefix } = getControllerData(AuthController);
 
-      return request(app.getServer()).post(`${prefix}/signup`).send(userData);
+      return request(app.getHttpServer()).post(`${prefix}/signup`).send(userData);
     });
   });
 
@@ -34,7 +34,7 @@ describe('Testing Auth', () => {
       const app = new App([AuthController]);
       const { prefix } = getControllerData(AuthController);
 
-      return request(app.getServer())
+      return request(app.getHttpServer())
         .post(`${prefix}/login`)
         .send(userData)
         .expect('Set-Cookie', /^Authorization=.+/);
@@ -48,7 +48,7 @@ describe('Testing Auth', () => {
 
       // TODO: Check the token in the header instead
 
-      // return request(app.getServer())
+      // return request(app.getHttpServer())
       //           .post(`${authRoute.path}/logout`)
       //           .expect('Set-Cookie', /^Authorization=\;/);
     });

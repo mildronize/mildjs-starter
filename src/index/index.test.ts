@@ -12,7 +12,7 @@ describe('Testing Index', () => {
     it('response statusCode 200', () => {
       const app = new App([IndexController]);
 
-      return request(app.getServer()).get('/').expect(200);
+      return request(app.getHttpServer()).get('/').expect(200);
     });
   });
 });

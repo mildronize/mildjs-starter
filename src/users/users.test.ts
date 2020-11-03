@@ -18,7 +18,7 @@ describe('Testing Users', () => {
       const app = new App([UsersController]);
       const { prefix } = getControllerData(UsersController);
 
-      return request(app.getServer()).get(`${prefix}`).expect(200, { data: findUser, message: 'findAll' });
+      return request(app.getHttpServer()).get(`${prefix}`).expect(200, { data: findUser, message: 'findAll' });
     });
   });
 
@@ -30,7 +30,7 @@ describe('Testing Users', () => {
       const app = new App([UsersController]);
       const { prefix } = getControllerData(UsersController);
 
-      return request(app.getServer()).get(`${prefix}/${userId}`).expect(200, { data: findUser, message: 'findOne' });
+      return request(app.getHttpServer()).get(`${prefix}/${userId}`).expect(200, { data: findUser, message: 'findOne' });
     });
   });
 
@@ -44,7 +44,7 @@ describe('Testing Users', () => {
       const app = new App([UsersController]);
       const { prefix } = getControllerData(UsersController);
 
-      return request(app.getServer()).post(`${prefix}`).send(userData).expect(201);
+      return request(app.getHttpServer()).post(`${prefix}`).send(userData).expect(201);
     });
   });
 
@@ -59,7 +59,7 @@ describe('Testing Users', () => {
       const app = new App([UsersController]);
       const { prefix } = getControllerData(UsersController);
 
-      return request(app.getServer()).put(`${prefix}/${userId}`).send(userData).expect(200);
+      return request(app.getHttpServer()).put(`${prefix}/${userId}`).send(userData).expect(200);
     });
   });
 
@@ -71,7 +71,7 @@ describe('Testing Users', () => {
       const app = new App([UsersController]);
       const { prefix } = getControllerData(UsersController);
 
-      return request(app.getServer())
+      return request(app.getHttpServer())
         .delete(`${prefix}/${userId}`)
         .expect(200, { data: deleteUser, message: 'deleted' });
     });
