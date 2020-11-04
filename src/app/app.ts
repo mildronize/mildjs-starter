@@ -33,7 +33,9 @@ class App {
     await this.initializeDatabase();
     logger.info('Connected to the database');
 
-    useExpressServer(this.app, this.modules, { container: Container });
+    useExpressServer(this.app, this.modules, { 
+      getProviderCallback: (provider: any) => Container.get(provider)
+    });
 
     this.initializeSwagger();
     this.initializeErrorHandling();

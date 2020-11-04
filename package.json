@@ -36,7 +36,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "reflect-metadata": "^0.1.13",
-    "route-controller": "^1.2.0",
+    "route-controller": "^1.3.0",
     "sqlite3": "^5.0.0",
     "swagger-jsdoc": "^4.3.1",
     "swagger-ui-express": "^4.1.4",
