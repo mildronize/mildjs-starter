@@ -33,10 +33,8 @@ class App {
     await this.initializeDatabase();
     logger.info('Connected to the database');
 
-    const appModule = {
-      imports: this.modules
-    }
-    useExpressServer(this.app, appModule, { 
+    useExpressServer(this.app, { 
+      imports: this.modules,
       getProviderCallback: (provider: any) => Container.get(provider)
     });
 
