@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { HttpException, StatusCodes , combineMiddlewares} from 'route-controller';
+import { HttpException, StatusCodes , combineMiddlewares} from '@mildjs/core';
 import { Container } from 'typeorm-di';
 import { DataStoredInToken, RequestWithUser } from './auth.interface';
 import { UsersService } from '../users/users.service';

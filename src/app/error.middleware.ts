@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { HttpException, StatusCodes, responseFormat } from 'route-controller';
+import { HttpException, StatusCodes, responseFormat } from '@mildjs/core';
 import { logger } from './config';
 
 function errorMiddleware(error: Error, req: Request, res: Response, next: NextFunction) {

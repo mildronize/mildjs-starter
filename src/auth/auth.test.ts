@@ -2,7 +2,7 @@ import request from 'supertest';
 import App from '../app/app';
 import { CreateUserDto } from '../users/dtos/users.dto';
 import { AuthController } from './auth.controller';
-import { getControllerData } from 'route-controller';
+import { getControllerData } from '@mildjs/core';
 
 afterAll(async () => {
   await new Promise((resolve) => setTimeout(() => resolve(), 500));

@@ -1,4 +1,4 @@
-import { assignObject } from 'route-controller';
+import { assignObject } from '@mildjs/core';
 import { UsersService } from './users.service';
 import { User } from './users.entity';
 import { Repository } from 'typeorm';

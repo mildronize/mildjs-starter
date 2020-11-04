@@ -3,7 +3,7 @@
 // import { User } from './users.interface';
 // import userModel from './users.seed';
 // import { CreateUserDto } from 'users/dtos/users.dto';
-// import { getControllerData } from 'route-controller';
+// import { getControllerData } from '@mildjs/core';
 // import { UsersController } from './users.controller';
 
 // afterAll(async () => {

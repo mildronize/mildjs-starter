@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Get, Controller } from 'route-controller';
+import { Get, Controller } from '@mildjs/core';
 
 @Controller()
 export class IndexController {

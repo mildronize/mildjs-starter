@@ -1,4 +1,4 @@
-import { HttpException } from 'route-controller';
+import { HttpException } from '@mildjs/core';
 import { DeleteResult, Repository, InjectRepository, Service } from 'typeorm-di';
 
 import { isEmptyObject } from '../app/util';

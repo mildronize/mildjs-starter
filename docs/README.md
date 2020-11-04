@@ -56,7 +56,7 @@ Note: `typeorm-di` is just the wrapper library of `typeorm`
 
     ```typescript
     import { Container } from "typeorm-di";
-    import { Controller, Get } from 'route-controller';
+    import { Controller, Get } from '@mildjs/core';
     import UserService from './users.service';
 
     @Controller('/users')
@@ -77,7 +77,7 @@ Note: `typeorm-di` is just the wrapper library of `typeorm`
 
     ```typescript
     import express from 'express';
-    import { addExpressController } from 'route-controller';
+    import { addExpressController } from '@mildjs/core';
     import { UsersController } from './users.controller';
 
     app = express();

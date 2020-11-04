@@ -11,7 +11,7 @@ import swaggerUi from 'swagger-ui-express';
 import { vars, logger } from './config';
 import errorMiddleware from './error.middleware';
 
-import { useExpressServer } from 'route-controller';
+import { useExpressServer } from '@mildjs/core';
 import { Connection, createConnection, useContainer, Container } from 'typeorm-di';
 
 class App {

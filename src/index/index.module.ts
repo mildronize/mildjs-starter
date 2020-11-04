@@ -1,4 +1,4 @@
-import { Module } from 'route-controller';
+import { Module } from '@mildjs/core';
 import { IndexController } from './index.controller';
 
 @Module({

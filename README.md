@@ -4,7 +4,7 @@ Express + Typescript
 
 ## Features
 
-- Express Route Decorator [route-controller](https://github.com/mildronize/route-controller)), special thanks for very good blog from [Kevin](https://nehalist.io/routing-with-typescript-decorators/) (Inspired by [nestjs](https://nestjs.com/), alternatively by [routing-controllers](https://github.com/typestack/routing-controllers))
+- Express Route Decorator [@mildjs/core](https://github.com/mildronize/mildjs)), special thanks for very good blog from [Kevin](https://nehalist.io/routing-with-typescript-decorators/) (Inspired by [nestjs](https://nestjs.com/), alternatively by [routing-controllers](https://github.com/typestack/routing-controllers))
   - Supported decorator: `Get`, `Post`, `Put`, `Delete` , `Use`
 - Use [typeorm-di](https://github.com/mildronize/typeorm-di) it wraps the module:
   - [TypeORM](https://typeorm.io/)
@@ -58,7 +58,7 @@ https://github.com/ljlm0402/typescript-express-starter, which provides features:
 - [Express with Typescript (Router Decorator) (v2)](https://github.com/mildronize/mali-server/tree/ts-express-boilerplate-route-decorator): 
   - **Features**:
     - Logger by [winston](https://github.com/winstonjs/winston) (Inspired from [danielfsousa](https://github.com/danielfsousa/express-rest-boilerplate/blob/master/src/config/logger.js))
-    - Express Route Decorator (`route-controller`), special thanks for very good blog from [Kevin](https://nehalist.io/routing-with-typescript-decorators/) (Inspired by [nestjs](https://nestjs.com/), alternatively by [routing-controllers(https://github.com/typestack/routing-controllers))
+    - Express Route Decorator (`@mildjs/core`), special thanks for very good blog from [Kevin](https://nehalist.io/routing-with-typescript-decorators/) (Inspired by [nestjs](https://nestjs.com/), alternatively by [routing-controllers(https://github.com/typestack/routing-controllers))
       - Supported decorator: `Get`, `Post`, `Put`, `Delete` , `Use`
 
   - **Changelog**: 

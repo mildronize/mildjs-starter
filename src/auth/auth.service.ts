@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { CreateUserDto } from '../users/dtos/users.dto';
 import { Repository, InjectRepository, Service, Container } from 'typeorm-di';
-import { HttpException } from 'route-controller';
+import { HttpException } from '@mildjs/core';
 import { DataStoredInToken, TokenData } from './auth.interface';
 import { User } from '../users/users.entity';
 import { vars } from '../app/config';

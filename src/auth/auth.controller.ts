@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Controller, Use, Post, StatusCodes, validateType, HttpException, responseFormat } from 'route-controller';
+import { Controller, Use, Post, StatusCodes, validateType, HttpException, responseFormat } from '@mildjs/core';
 
 import { CreateUserDto } from '../users/dtos/users.dto';
 import { User } from '../users/users.entity';

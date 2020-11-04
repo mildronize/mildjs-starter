@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Controller, Delete, Get, Use, Post, Put, validateType, StatusCodes } from 'route-controller';
+import { Controller, Delete, Get, Use, Post, Put, validateType, StatusCodes } from '@mildjs/core';
 import { Container } from 'typeorm-di';
 
 import { User } from './users.entity';
