@@ -1,4 +1,4 @@
-# Mali Server
+# A starter template for using library MildJs
 
 Express + Typescript
 
